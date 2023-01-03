@@ -57,7 +57,15 @@ class Todo {
   }
 }
 
-let displayController = (function () {})();
+let displayController = (function () {
+  // create todo element
+  function createTodoElem() {
+    let todoElem = document.createElement('div');
+  }
+  // update element's children
+  function replaceChildrenWithTodo() {}
+  return { replaceChildrenWithTodo };
+})();
 
 let todo = new Todo('some title', 'some description', true, new Date('2023-01-07T21:00:00'));
 
