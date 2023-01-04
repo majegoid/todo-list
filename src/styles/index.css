@@ -1,3 +1,54 @@
-body {
-  background-color: red;
+:root {
+  font-family: Arial, Helvetica, sans-serif;
 }
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #444;
+  color: white;
+}
+
+/* NAVBAR */
+nav {
+  height: 64px;
+  background-color: #666;
+}
+
+nav > ul {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+
+  height: 100%;
+  font-weight: bold;
+}
+
+nav > ul > li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: fit-content;
+  padding: 0 16px;
+
+  list-style-type: none;
+  background-color: #777;
+}
+
+nav > ul > li:hover {
+  background-color: #999;
+  cursor: pointer;
+}
+
+nav > ul > li:not(:has(h1)) {
+  width: 125px;
+}
+/* END NAVBAR */
