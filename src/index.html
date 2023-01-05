@@ -4,29 +4,145 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>To-Do List</title>
   </head>
   <body>
-    <nav>
-      <ul>
-        <li><h1>Todo List</h1></li>
-        <li>Link 1</li>
-        <li>Link 2</li>
-        <li>Link 3</li>
-        <li>Link 4</li>
-      </ul>
+    <header>
+      <h1><i class="fa-solid fa-list-check"></i>Todo List</h1>
+    </header>
+    <nav class="side-nav">
+      <h1>Home</h1>
+      <div class="menu-item menu-item-active">
+        <i class="fa-solid fa-list-check"></i>All Tasks
+      </div>
+      <div class="menu-item"><i class="fa-solid fa-calendar-day"></i>Today</div>
+      <div class="menu-item">
+        <i class="fa-solid fa-calendar-week"></i>Next 7 Days
+      </div>
+      <div class="menu-item"><i class="fa-solid fa-star"></i>Starred</div>
+      <h1>Projects</h1>
+      <div class="menu-item">
+        <i class="fa-solid fa-list-check"></i>Your Project #1
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </div>
+      <div class="menu-item">
+        <i class="fa-solid fa-list-check"></i>Your Project #2
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </div>
+      <div class="menu-item">
+        <i class="fa-solid fa-list-check"></i>Your Project #3
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </div>
+      <div class="menu-item"><i class="fa-solid fa-plus"></i>Add Project</div>
+      <div class="menu-item menu-item-form">
+        <div><i class="fa-solid fa-list-check"></i><input type="text" /></div>
+        <div>
+          <button class="button-green">Add</button
+          ><button class="button-red">Cancel</button>
+        </div>
+      </div>
+      <div class="menu-item-options-popup">
+        <button class="button-green">Rename</button>
+        <button class="button-red">Delete</button>
+      </div>
     </nav>
-    <div class="todo">
-      <h2>Title</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius sint
-        sapiente commodi quam repudiandae quia voluptatibus ex atque?
-        Voluptates, omnis?
-      </p>
-      <p>isComplete? TRUE</p>
-      <p>Due: DATE</p>
-      <button>EDIT</button>
-      <button>DELETE</button>
-    </div>
+    <main>
+      <div><h1>Project Name</h1></div>
+      <div class="todos-container">
+        <div class="todo">
+          <div><i class="fa-solid fa-square-check clickable"></i></div>
+          <div>
+            <h4>Todo Title</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis
+              ullam voluptas voluptates cumque dolore animi tempora quas
+              molestias voluptatibus in!
+            </p>
+          </div>
+          <div>
+            <h4>Due Date:</h4>
+            <div>yyyy-mm-dd</div>
+          </div>
+          <div><i class="fa-solid fa-star clickable"></i></div>
+          <div><i class="fa-solid fa-ellipsis-vertical clickable"></i></div>
+        </div>
+        <div class="todo">
+          <div><i class="fa-solid fa-square-check clickable"></i></div>
+          <div>
+            <h4>Todo Title</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis
+              ullam voluptas voluptates cumque dolore animi tempora quas
+              molestias voluptatibus in!
+            </p>
+          </div>
+          <div>
+            <h4>Due Date:</h4>
+            <div>yyyy-mm-dd</div>
+          </div>
+          <div><i class="fa-solid fa-star clickable"></i></div>
+          <div><i class="fa-solid fa-ellipsis-vertical clickable"></i></div>
+        </div>
+        <div class="todo">
+          <div><i class="fa-solid fa-square-check clickable"></i></div>
+          <div>
+            <h4>Todo Title</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis
+              ullam voluptas voluptates cumque dolore animi tempora quas
+              molestias voluptatibus in!
+            </p>
+          </div>
+          <div>
+            <h4>Due Date:</h4>
+            <div>yyyy-mm-dd</div>
+          </div>
+          <div><i class="fa-solid fa-star clickable"></i></div>
+          <div><i class="fa-solid fa-ellipsis-vertical clickable"></i></div>
+        </div>
+
+        <div class="menu-item" style="justify-content: flex-start; gap: 16px">
+          <i class="fa-solid fa-plus clickable"></i>Add Todo
+        </div>
+      </div>
+      <div class="form-container">
+        <form novalidate onsubmit="event.preventDefault();">
+          <h2>Create Todo</h2>
+          <div>
+            <label for="title">Title:</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Task Title"
+            />
+          </div>
+          <div>
+            <label for="description">Description:</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              placeholder="Task Description"
+            />
+          </div>
+          <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" placeholder="mm/dd/yyyy" />
+          </div>
+          <div>
+            <button class="button-green">Add</button>
+            <button class="button-red">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </main>
   </body>
 </html>
