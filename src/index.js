@@ -1,4 +1,4 @@
-import { Todo } from './classes/todo';
+import { Todo } from './classes/Todo';
 import { displayController } from './modules/displayController';
 import './styles/index.css';
 
