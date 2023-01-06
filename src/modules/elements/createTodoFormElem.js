@@ -1,8 +1,8 @@
 export function createTodoFormElem(
-  currentState = {
+  initialState = {
     title: '',
     description: '',
-    date: new Date(Date.now() + 86400000),
+    dueDate: new Date(Date.now() + 86400000),
   }
 ) {
   // <form novalidate onsubmit="event.preventDefault();">
@@ -51,7 +51,9 @@ export function createTodoFormElem(
   const cancelButton = document.createElement('button');
 
   formElem.novalidate = true;
-  formElem.onsubmit = 'event.preventDefault();';
+  formElem.onsubmit = function (e) {
+    e.preventDefault();
+  };
 
   formTitleH2.textContent = 'Create Todo';
 
@@ -61,6 +63,7 @@ export function createTodoFormElem(
   titleInput.id = 'title';
   titleInput.name = 'title';
   titleInput.placeholder = 'Task Title';
+  titleInput.value = initialState.title;
 
   descriptionLabel.for = 'description';
   descriptionLabel.textContent = 'Description:';
@@ -68,6 +71,7 @@ export function createTodoFormElem(
   descriptionInput.id = 'description';
   descriptionInput.name = 'description';
   descriptionInput.placeholder = 'Task Description';
+  descriptionInput.value = initialState.description;
 
   dateDueLabel.for = 'date-due';
   dateDueLabel.textContent = 'Due Date:';
@@ -75,6 +79,7 @@ export function createTodoFormElem(
   dateDueInput.id = 'date-due';
   dateDueInput.name = 'date-due';
   dateDueInput.placeholder = 'mm/dd/yyyy';
+  dateDueInput.value = initialState.dueDate;
 
   addButton.className = 'button-green';
   addButton.textContent = 'Add';
