@@ -1,4 +1,5 @@
 import { addProjectClickDiv } from '../factories/elements/addProjectClickDiv';
+import { addProjectForm } from '../factories/elements/addProjectForm';
 import { addTodoClickDiv } from '../factories/elements/addTodoClickDiv';
 import { createTodo } from '../factories/elements/createTodo';
 import { createTodoForm } from '../factories/elements/createTodoForm';
@@ -15,18 +16,18 @@ export const displayController = (function () {
   );
 
   // instantiated elements
-  const addTodoForm = createTodoForm();
+  const addTodoFormElem = createTodoForm();
   const addTodoClickDivElem = addTodoClickDiv();
 
-  // appends
-  createTodoFormContainer.appendChild(addTodoForm);
+  const addProjectFormElem = addProjectForm();
+  const addProjectClickDivElem = addProjectClickDiv();
 
   function setProjectMenuItems(projects = []) {
     projectMenuItemsContainer.replaceChildren();
     for (const project of projects) {
       projectMenuItemsContainer.appendChild(projectMenuItem(project));
     }
-    projectMenuItemsContainer.appendChild(addProjectClickDiv());
+    projectMenuItemsContainer.appendChild(addProjectClickDivElem);
   }
 
   function setTodos(todos = []) {
@@ -38,10 +39,36 @@ export const displayController = (function () {
   }
 
   function setCreateTodoFormDisplay(isShown = true) {
+    // show
+    if (isShown && todosContainer.contains(addTodoClickDivElem)) {
+      todosContainer.removeChild(addTodoClickDivElem);
+    }
     if (isShown) {
-      addTodoForm.classList.remove('hidden');
-    } else {
-      addTodoForm.classList.add('hidden');
+      createTodoFormContainer.appendChild(addTodoFormElem);
+    }
+    // hide
+    if (!isShown && createTodoFormContainer.contains(addTodoFormElem)) {
+      createTodoFormContainer.removeChild(addTodoFormElem);
+    }
+    if (!isShown) {
+      todosContainer.appendChild(addTodoClickDivElem);
+    }
+  }
+
+  function setAddProjectFormDisplay(isShown = true) {
+    // show
+    if (isShown && projectMenuItemsContainer.contains(addProjectClickDivElem)) {
+      projectMenuItemsContainer.removeChild(addProjectClickDivElem);
+    }
+    if (isShown) {
+      projectMenuItemsContainer.appendChild(addProjectFormElem);
+    }
+    // hide
+    if (!isShown && projectMenuItemsContainer.contains(addProjectFormElem)) {
+      projectMenuItemsContainer.removeChild(addProjectFormElem);
+    }
+    if (!isShown) {
+      projectMenuItemsContainer.appendChild(addProjectClickDivElem);
     }
   }
 
@@ -49,5 +76,6 @@ export const displayController = (function () {
     setTodos,
     setProjectMenuItems,
     setCreateTodoFormDisplay,
+    setAddProjectFormDisplay,
   };
 })();

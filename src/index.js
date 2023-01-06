@@ -16,6 +16,9 @@ const projects = [
 ];
 let displayedProject = projects[0];
 
+// projects
 displayController.setProjectMenuItems(projects);
+displayController.setAddProjectFormDisplay(false);
+// todos
 displayController.setTodos(displayedProject.todos);
 displayController.setCreateTodoFormDisplay(false);
