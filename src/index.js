@@ -2,15 +2,15 @@ import { displayController } from './modules/displayController';
 import { Todo } from './modules/todo';
 import './styles/index.css';
 
-const todosList = document.querySelector('.todos-container');
-
-let todo = new Todo(
+const todo = new Todo(
   'some title',
   'some description',
   true,
   new Date('2023-01-07T21:00:00')
 );
 
-const projectArr = [todo, todo, todo];
+const projects = [[todo, todo, todo]];
+let displayedProject = projects[0];
 
-displayController.replaceChildrenWithTodos(todosList, projectArr);
+displayController.setTodos(displayedProject);
+displayController.setCreateTodoFormDisplay(false);

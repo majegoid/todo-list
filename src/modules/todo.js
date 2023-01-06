@@ -10,7 +10,7 @@ export class Todo {
     title = '',
     description = '',
     isComplete = false,
-    dueDate = new Date(Date.now() + 86400000)
+    dueDate = new Date(Date.now() + 24 * 60 * 60 * 1000)
   ) {
     this.#title = title;
     this.#description = description;

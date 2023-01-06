@@ -355,6 +355,10 @@ main {
 } */
 /* END TO-DOs */
 
+.hidden {
+  display: none;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     --light-neutral-1: #777;
