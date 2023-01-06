@@ -22,3 +22,6 @@ displayController.setAddProjectFormDisplay(false);
 // todos
 displayController.setTodos(displayedProject.todos);
 displayController.setCreateTodoFormDisplay(false);
+
+// displayController.setProjectOptionsDisplay(true, 100, 100);
+// displayController.setProjectOptionsDisplay(false);

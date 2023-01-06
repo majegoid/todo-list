@@ -4,6 +4,7 @@ import { addTodoClickDiv } from '../factories/elements/addTodoClickDiv';
 import { createTodo } from '../factories/elements/createTodo';
 import { createTodoForm } from '../factories/elements/createTodoForm';
 import { projectMenuItem } from '../factories/elements/projectMenuItem';
+import { projectOptionsPopup } from '../factories/elements/projectOptionsPopup';
 
 export const displayController = (function () {
   // containers
@@ -21,6 +22,10 @@ export const displayController = (function () {
 
   const addProjectFormElem = addProjectForm();
   const addProjectClickDivElem = addProjectClickDiv();
+
+  const popup = projectOptionsPopup(0, 0);
+  const body = document.querySelector('body');
+  body.appendChild(popup);
 
   function setProjectMenuItems(projects = []) {
     projectMenuItemsContainer.replaceChildren();
@@ -72,10 +77,22 @@ export const displayController = (function () {
     }
   }
 
+  function setProjectOptionsDisplay(isShown = true, xPos = 0, yPos = 0) {
+    if (isShown) {
+      popup.style.display = 'flex';
+      popup.style.top = `${yPos}px`;
+      popup.style.left = `${xPos}px`;
+    }
+    if (!isShown) {
+      popup.style.display = 'none';
+    }
+  }
+
   return {
     setTodos,
     setProjectMenuItems,
     setCreateTodoFormDisplay,
     setAddProjectFormDisplay,
+    setProjectOptionsDisplay,
   };
 })();
