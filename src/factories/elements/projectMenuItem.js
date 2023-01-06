@@ -1,4 +1,4 @@
-export function projectMenuItem(project) {
+export function ProjectMenuItem(project) {
   // <div class="menu-item">
   //   <i class="fa-solid fa-list-check"></i>Your Project #1
   //   <i class="fa-solid fa-ellipsis-vertical"></i>

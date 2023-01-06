@@ -1,10 +1,10 @@
-import { addProjectClickDiv } from '../factories/elements/addProjectClickDiv';
-import { addProjectForm } from '../factories/elements/addProjectForm';
-import { addTodoClickDiv } from '../factories/elements/addTodoClickDiv';
-import { createTodo } from '../factories/elements/createTodo';
-import { createTodoForm } from '../factories/elements/createTodoForm';
-import { projectMenuItem } from '../factories/elements/projectMenuItem';
-import { projectOptionsPopup } from '../factories/elements/projectOptionsPopup';
+import { AddProjectForm } from '../factories/elements/AddProjectForm';
+import { AddProjectMenuItem } from '../factories/elements/AddProjectMenuItem';
+import { AddTodo } from '../factories/elements/AddTodo';
+import { AddTodoForm } from '../factories/elements/AddTodoForm';
+import { ProjectMenuItem } from '../factories/elements/ProjectMenuItem';
+import { ProjectOptionsPopup } from '../factories/elements/ProjectOptionsPopup';
+import { TodoListItem } from '../factories/elements/TodoListItem';
 
 export const displayController = (function () {
   // containers
@@ -17,20 +17,20 @@ export const displayController = (function () {
   );
 
   // instantiated elements
-  const addTodoFormElem = createTodoForm();
-  const addTodoClickDivElem = addTodoClickDiv();
+  const addTodoFormElem = AddTodoForm();
+  const addTodoClickDivElem = AddTodo();
 
-  const addProjectFormElem = addProjectForm();
-  const addProjectClickDivElem = addProjectClickDiv();
+  const addProjectFormElem = AddProjectForm();
+  const addProjectClickDivElem = AddProjectMenuItem();
 
-  const popup = projectOptionsPopup(0, 0);
+  const popup = ProjectOptionsPopup(0, 0);
   const body = document.querySelector('body');
   body.appendChild(popup);
 
   function setProjectMenuItems(projects = []) {
     projectMenuItemsContainer.replaceChildren();
     for (const project of projects) {
-      projectMenuItemsContainer.appendChild(projectMenuItem(project));
+      projectMenuItemsContainer.appendChild(ProjectMenuItem(project));
     }
     projectMenuItemsContainer.appendChild(addProjectClickDivElem);
   }
@@ -38,7 +38,7 @@ export const displayController = (function () {
   function setTodos(todos = []) {
     todosContainer.replaceChildren();
     for (const todo of todos) {
-      todosContainer.appendChild(createTodo(todo));
+      todosContainer.appendChild(TodoListItem(todo));
     }
     todosContainer.appendChild(addTodoClickDivElem);
   }

@@ -1,4 +1,4 @@
-export function addProjectForm() {
+export function AddProjectForm() {
   // <div class="menu-item menu-item-form">
   //   <div><i class="fa-solid fa-list-check"></i><input type="text" /></div>
   //   <div>

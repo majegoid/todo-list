@@ -1,4 +1,4 @@
-export function projectOptionsPopup(xPos = 0, yPos = 0) {
+export function ProjectOptionsPopup(xPos = 0, yPos = 0) {
   if (
     typeof xPos !== 'number' ||
     Number.isNaN(xPos) ||

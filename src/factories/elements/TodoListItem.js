@@ -1,4 +1,4 @@
-export function createTodo(todo) {
+export function TodoListItem(todo) {
   // <div class="todo">
   //   <div><i class="fa-solid fa-square-check clickable"></i></div>
   //   <div>
