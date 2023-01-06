@@ -1,3 +1,4 @@
+import { addProjectClickDiv } from '../factories/elements/addProjectClickDiv';
 import { addTodoClickDiv } from '../factories/elements/addTodoClickDiv';
 import { createTodo } from '../factories/elements/createTodo';
 import { createTodoForm } from '../factories/elements/createTodoForm';
@@ -25,6 +26,7 @@ export const displayController = (function () {
     for (const project of projects) {
       projectMenuItemsContainer.appendChild(projectMenuItem(project));
     }
+    projectMenuItemsContainer.appendChild(addProjectClickDiv());
   }
 
   function setTodos(todos = []) {
