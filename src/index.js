@@ -9,8 +9,13 @@ const todo = new Todo(
   new Date('2023-01-07T21:00:00')
 );
 
-const projects = [[todo, todo, todo]];
+const projects = [
+  { title: 'Project #1', todos: [todo, todo, todo] },
+  { title: 'Project #2', todos: [todo, todo, todo] },
+  { title: 'Project #3', todos: [todo, todo, todo] },
+];
 let displayedProject = projects[0];
 
-displayController.setTodos(displayedProject);
+displayController.setProjectMenuItems(projects);
+displayController.setTodos(displayedProject.todos);
 displayController.setCreateTodoFormDisplay(false);

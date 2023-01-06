@@ -1,11 +1,17 @@
 import { addTodoClickDiv } from '../factories/elements/addTodoClickDiv';
 import { createTodo } from '../factories/elements/createTodo';
 import { createTodoForm } from '../factories/elements/createTodoForm';
+import { projectMenuItem } from '../factories/elements/projectMenuItem';
 
 export const displayController = (function () {
   // containers
-  const todosContainer = document.querySelector('.todos-container');
-  const createTodoFormContainer = document.querySelector('.form-container');
+  const todosContainer = document.querySelector('#todos-container');
+  const createTodoFormContainer = document.querySelector(
+    '#create-todo-form-container'
+  );
+  const projectMenuItemsContainer = document.querySelector(
+    '#project-menu-items-container'
+  );
 
   // instantiated elements
   const addTodoForm = createTodoForm();
@@ -13,6 +19,13 @@ export const displayController = (function () {
 
   // appends
   createTodoFormContainer.appendChild(addTodoForm);
+
+  function setProjectMenuItems(projects = []) {
+    projectMenuItemsContainer.replaceChildren();
+    for (const project of projects) {
+      projectMenuItemsContainer.appendChild(projectMenuItem(project));
+    }
+  }
 
   function setTodos(todos = []) {
     todosContainer.replaceChildren();
@@ -32,6 +45,7 @@ export const displayController = (function () {
 
   return {
     setTodos,
+    setProjectMenuItems,
     setCreateTodoFormDisplay,
   };
 })();

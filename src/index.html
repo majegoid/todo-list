@@ -18,29 +18,25 @@
       <h1><i class="fa-solid fa-list-check"></i>Todo List</h1>
     </header>
     <nav class="side-nav">
-      <h1>Home</h1>
-      <div class="menu-item menu-item-active">
-        <i class="fa-solid fa-list-check"></i>All Tasks
+      <div id="project-filters-container" class="menu-items-container">
+        <h1>Home</h1>
+        <div class="menu-item menu-item-active">
+          <i class="fa-solid fa-list-check"></i>All Tasks
+        </div>
+        <div class="menu-item">
+          <i class="fa-solid fa-calendar-day"></i>Today
+        </div>
+        <div class="menu-item">
+          <i class="fa-solid fa-calendar-week"></i>Next 7 Days
+        </div>
+        <div class="menu-item"><i class="fa-solid fa-star"></i>Starred</div>
       </div>
-      <div class="menu-item"><i class="fa-solid fa-calendar-day"></i>Today</div>
-      <div class="menu-item">
-        <i class="fa-solid fa-calendar-week"></i>Next 7 Days
+      <div id="project-menu-items-container" class="menu-items-container">
+        <h1>Projects</h1>
+
+        <div class="menu-item"><i class="fa-solid fa-plus"></i>Add Project</div>
       </div>
-      <div class="menu-item"><i class="fa-solid fa-star"></i>Starred</div>
-      <h1>Projects</h1>
-      <div class="menu-item">
-        <i class="fa-solid fa-list-check"></i>Your Project #1
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="menu-item">
-        <i class="fa-solid fa-list-check"></i>Your Project #2
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="menu-item">
-        <i class="fa-solid fa-list-check"></i>Your Project #3
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </div>
-      <div class="menu-item"><i class="fa-solid fa-plus"></i>Add Project</div>
+
       <div class="menu-item menu-item-form">
         <div><i class="fa-solid fa-list-check"></i><input type="text" /></div>
         <div>
@@ -55,8 +51,8 @@
     </nav>
     <main>
       <div><h1>Project Name</h1></div>
-      <div class="todos-container"></div>
-      <div class="form-container"></div>
+      <div id="todos-container" class="todos-container"></div>
+      <div id="create-todo-form-container"></div>
     </main>
   </body>
 </html>

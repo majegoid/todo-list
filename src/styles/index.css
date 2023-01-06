@@ -226,6 +226,14 @@ header > h1 > i {
   border-bottom: 2px solid white;
 }
 
+.menu-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  background-color: var(--dark-neutral-3);
+}
+
 .menu-item {
   display: flex;
   justify-content: space-between;
