@@ -1,5 +1,5 @@
+import { Todo } from './classes/todo';
 import { displayController } from './modules/displayController';
-import { Todo } from './modules/todo';
 import './styles/index.css';
 
 const todo = new Todo(

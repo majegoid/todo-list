@@ -1,4 +1,4 @@
-export function createTodoFormElem(
+export function createTodoForm(
   initialState = {
     title: '',
     description: '',

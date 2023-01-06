@@ -1,4 +1,4 @@
-export function createTodoElem(todo) {
+export function createTodo(todo) {
   // <div class="todo">
   //   <div><i class="fa-solid fa-square-check clickable"></i></div>
   //   <div>

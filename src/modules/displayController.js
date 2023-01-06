@@ -1,5 +1,6 @@
-import { createTodoFormElem } from './elements/createTodoFormElem';
-import { createTodoElem } from './elements/todoElem';
+import { addTodoClickDiv } from '../factories/elements/addTodoClickDiv';
+import { createTodo } from '../factories/elements/createTodo';
+import { createTodoForm } from '../factories/elements/createTodoForm';
 
 export const displayController = (function () {
   // containers
@@ -7,23 +8,25 @@ export const displayController = (function () {
   const createTodoFormContainer = document.querySelector('.form-container');
 
   // instantiated elements
-  const createTodoForm = createTodoFormElem();
+  const addTodoForm = createTodoForm();
+  const addTodoClickDivElem = addTodoClickDiv();
 
   // appends
-  createTodoFormContainer.appendChild(createTodoForm);
+  createTodoFormContainer.appendChild(addTodoForm);
 
   function setTodos(todos = []) {
     todosContainer.replaceChildren();
     for (const todo of todos) {
-      todosContainer.appendChild(createTodoElem(todo));
+      todosContainer.appendChild(createTodo(todo));
     }
+    todosContainer.appendChild(addTodoClickDivElem);
   }
 
   function setCreateTodoFormDisplay(isShown = true) {
     if (isShown) {
-      createTodoForm.classList.remove('hidden');
+      addTodoForm.classList.remove('hidden');
     } else {
-      createTodoForm.classList.add('hidden');
+      addTodoForm.classList.add('hidden');
     }
   }
 
