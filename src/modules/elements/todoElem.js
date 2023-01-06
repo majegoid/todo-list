@@ -1,8 +1,4 @@
-export function createTodoElem(
-  title,
-  description,
-  dueDate = new Date(Date.now())
-) {
+export function createTodoElem(todo) {
   // <div class="todo">
   //   <div><i class="fa-solid fa-square-check clickable"></i></div>
   //   <div>
@@ -20,7 +16,10 @@ export function createTodoElem(
   //   <div><i class="fa-solid fa-star clickable"></i></div>
   //   <div><i class="fa-solid fa-ellipsis-vertical clickable"></i></div>
   // </div>
-  const todo = document.createElement('div');
+
+  if (!todo) return;
+
+  const todoElem = document.createElement('div');
   const checkedCheckboxIconContainer = document.createElement('div');
   const checkedCheckboxIcon = document.createElement('i');
   const infoContainer = document.createElement('div');
@@ -34,18 +33,18 @@ export function createTodoElem(
   const ellipsisVIconContainer = document.createElement('div');
   const ellipsisVIcon = document.createElement('i');
 
-  todo.appendChild(checkedCheckboxIconContainer);
-  todo.appendChild(infoContainer);
-  todo.appendChild(dueDateContainer);
-  todo.appendChild(starIconContainer);
-  todo.appendChild(ellipsisVIconContainer);
+  todoElem.appendChild(checkedCheckboxIconContainer);
+  todoElem.appendChild(infoContainer);
+  todoElem.appendChild(dueDateContainer);
+  todoElem.appendChild(starIconContainer);
+  todoElem.appendChild(ellipsisVIconContainer);
 
-  todo.className = 'todo';
+  todoElem.className = 'todo';
   checkedCheckboxIcon.className = 'fa-solid fa-square-check clickable';
-  titleElem.textContent = title;
-  descriptionElem.textContent = description;
+  titleElem.textContent = todo.title;
+  descriptionElem.textContent = todo.description;
   dueDateLabel.textContent = 'Due Date:';
-  dueDateElem.textContent = dueDate;
+  dueDateElem.textContent = todo.dueDate;
   starIcon.className = 'fa-solid fa-star clickable';
   ellipsisVIcon.className = 'fa-solid fa-ellipsis-vertical clickable';
 
@@ -61,5 +60,5 @@ export function createTodoElem(
 
   ellipsisVIconContainer.appendChild(ellipsisVIcon);
 
-  return todo;
+  return todoElem;
 }

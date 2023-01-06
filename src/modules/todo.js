@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export class Todo {
   #title;
   #description;
@@ -47,7 +49,7 @@ export class Todo {
   }
 
   get dueDate() {
-    return this.#dueDate;
+    return format(this.#dueDate, 'MM/dd/yyyy');
   }
 
   set dueDate(value) {

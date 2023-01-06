@@ -1,7 +1,8 @@
+import { displayController } from './modules/displayController';
 import { Todo } from './modules/todo';
 import './styles/index.css';
 
-const projectArr = [];
+const todosList = document.querySelector('.todos-container');
 
 let todo = new Todo(
   'some title',
@@ -10,6 +11,6 @@ let todo = new Todo(
   new Date('2023-01-07T21:00:00')
 );
 
-projectArr.push(todo);
+const projectArr = [todo, todo, todo];
 
-console.log(todo);
+displayController.replaceChildrenWithTodos(todosList, projectArr);
