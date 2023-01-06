@@ -1,7 +1,12 @@
+import { createTodoElem } from './elements/todoElem';
+
 export const displayController = (function () {
-  // create todo element
-  function createTodoElem() {
-    let todoElem = document.createElement('div');
+  function replaceChildrenWithTodos(target, todos = []) {
+    target.replaceChildren();
+    for (const todo of todos) {
+      target.appendChild(createTodoElem(todo));
+    }
   }
-  return {};
+
+  return { replaceChildrenWithTodos };
 })();
