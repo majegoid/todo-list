@@ -1,4 +1,4 @@
-export function AddProjectForm() {
+export function AddProjectForm(addClickHandler, cancelClickHandler) {
   // <div class="menu-item menu-item-form">
   //   <div><i class="fa-solid fa-list-check"></i><input type="text" /></div>
   //   <div>
@@ -31,6 +31,9 @@ export function AddProjectForm() {
 
   buttonsDiv.appendChild(addButton);
   buttonsDiv.appendChild(cancelButton);
+
+  addButton.onclick = addClickHandler;
+  cancelButton.onclick = cancelClickHandler;
 
   return projectFormDiv;
 }
