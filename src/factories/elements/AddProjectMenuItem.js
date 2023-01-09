@@ -1,4 +1,4 @@
-export function AddProjectMenuItem() {
+export function AddProjectMenuItem(clickHandler) {
   // <div class="menu-item">
   //   <i class="fa-solid fa-plus"></i>Add Project
   // </div>;
@@ -11,6 +11,8 @@ export function AddProjectMenuItem() {
 
   menuItemDiv.appendChild(plusIcon);
   menuItemDiv.appendChild(document.createTextNode('Add Project'));
+
+  menuItemDiv.onclick = clickHandler;
 
   return menuItemDiv;
 }

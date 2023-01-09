@@ -20,12 +20,38 @@ export const displayController = (function () {
   const addTodoFormElem = AddTodoForm();
   const addTodoClickDivElem = AddTodo();
 
-  const addProjectFormElem = AddProjectForm();
-  const addProjectClickDivElem = AddProjectMenuItem();
+  const addProjectFormElem = AddProjectForm(
+    function () {},
+    function () {}
+  );
 
+  const addProjectClickDivElem = AddProjectMenuItem(function () {
+    setAddProjectFormDisplay(true);
+  });
+
+  // popup
   const popup = ProjectOptionsPopup(0, 0);
   const body = document.querySelector('body');
   body.appendChild(popup);
+
+  // document click listener
+  document.onclick = function (e) {
+    let targetEl = e.target; // the clicked element
+
+    do {
+      if (
+        targetEl === addProjectClickDivElem ||
+        targetEl === addProjectFormElem
+      ) {
+        return;
+      }
+      // go up one element from the target.
+      targetEl = targetEl.parentNode;
+    } while (targetEl);
+
+    // if no element in the hierarchy from the clicked element was clicked:
+    setAddProjectFormDisplay(false);
+  };
 
   function setProjectMenuItems(projects = []) {
     projectMenuItemsContainer.replaceChildren();
