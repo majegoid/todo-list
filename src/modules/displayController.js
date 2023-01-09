@@ -21,12 +21,8 @@ export const displayController = (function () {
   const addTodoClickDivElem = AddTodo();
 
   const addProjectFormElem = AddProjectForm(
-    function () {
-      
-    },
-    function () {
-
-    }
+    function () {},
+    function () {}
   );
 
   const addProjectClickDivElem = AddProjectMenuItem(function () {
