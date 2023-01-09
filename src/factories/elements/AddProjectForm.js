@@ -32,8 +32,14 @@ export function AddProjectForm(addClickHandler, cancelClickHandler) {
   buttonsDiv.appendChild(addButton);
   buttonsDiv.appendChild(cancelButton);
 
-  addButton.onclick = addClickHandler;
-  cancelButton.onclick = cancelClickHandler;
+  addButton.onclick = () => {
+    addClickHandler(titleInput.value);
+    titleInput.value = '';
+  };
+  cancelButton.onclick = () => {
+    cancelClickHandler();
+    titleInput.value = '';
+  };
 
   return projectFormDiv;
 }

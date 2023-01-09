@@ -1,3 +1,4 @@
+import { Project } from '../classes/Project';
 import { AddProjectForm } from '../factories/elements/AddProjectForm';
 import { AddProjectMenuItem } from '../factories/elements/AddProjectMenuItem';
 import { AddTodo } from '../factories/elements/AddTodo';
@@ -21,8 +22,20 @@ export const displayController = (function () {
   const addTodoClickDivElem = AddTodo();
 
   const addProjectFormElem = AddProjectForm(
-    function () {},
-    function () {}
+    function (projectTitle) {
+      // creates and adds a new project to localStorage
+      const newProject = new Project(projectTitle, []);
+      localStorage.setItem(
+        newProject.title,
+        newProject.todoList
+        // JSON.stringify(newProject.todoList, null, 2)
+      );
+      setAddProjectFormDisplay(false);
+    },
+    function () {
+      // closes the AddProjectForm
+      setAddProjectFormDisplay(false);
+    }
   );
 
   const addProjectClickDivElem = AddProjectMenuItem(function () {
