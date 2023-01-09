@@ -7,8 +7,8 @@ export class Todo {
   #dueDate;
 
   constructor(
-    title = '',
-    description = '',
+    title = 'default title',
+    description = 'default description',
     isComplete = false,
     dueDate = new Date(Date.now() + 24 * 60 * 60 * 1000)
   ) {
