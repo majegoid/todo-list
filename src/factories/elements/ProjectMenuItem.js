@@ -1,3 +1,5 @@
+import { Actions } from '../../classes/static/Actions';
+
 export function ProjectMenuItem(project) {
   // <div class="menu-item">
   //   <i class="fa-solid fa-list-check"></i>Your Project #1
@@ -18,6 +20,8 @@ export function ProjectMenuItem(project) {
   projectMenuItemDiv.appendChild(listCheckIcon);
   projectMenuItemDiv.appendChild(projectMenuItemDivText);
   projectMenuItemDiv.appendChild(ellipsisVIcon);
+
+  projectMenuItemDiv.onclick = () => Actions.makeActiveProjectHandler(project);
 
   return projectMenuItemDiv;
 }

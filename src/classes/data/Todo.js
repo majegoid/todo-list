@@ -7,8 +7,8 @@ export class Todo {
   #dueDate;
 
   constructor(
-    title = '',
-    description = '',
+    title = 'default title',
+    description = 'default description',
     isComplete = false,
     dueDate = new Date(Date.now() + 24 * 60 * 60 * 1000)
   ) {
@@ -57,4 +57,13 @@ export class Todo {
       this.#dueDate = value;
     }
   }
+
+  toJSON = function () {
+    return {
+      title: this.title,
+      description: this.description,
+      isComplete: this.isComplete,
+      dueDate: this.dueDate,
+    };
+  };
 }

@@ -1,27 +1,22 @@
-import { Todo } from './classes/Todo';
-import { displayController } from './modules/displayController';
+import { Storage } from './classes/static/Storage';
+import { UI } from './classes/static/UI';
 import './styles/index.css';
 
-const todo = new Todo(
-  'some title',
-  'some description',
-  true,
-  new Date('2023-01-07T21:00:00')
-);
+if (localStorage.length === 0) {
+  Storage.seedData();
+}
 
-const projects = [
-  { title: 'Project #1', todos: [todo, todo, todo] },
-  { title: 'Project #2', todos: [todo, todo, todo] },
-  { title: 'Project #3', todos: [todo, todo, todo] },
-];
-let displayedProject = projects[0];
+Storage.loadProjects();
 
+Storage.currentProject = Storage.projectList[0];
+
+UI.setup();
 // projects
-displayController.setProjectMenuItems(projects);
-displayController.setAddProjectFormDisplay(false);
+UI.setProjectMenuItems(Storage.projectList);
+UI.setAddProjectFormDisplay(false);
 // todos
-displayController.setTodos(displayedProject.todos);
-displayController.setCreateTodoFormDisplay(false);
+UI.setProject(Storage.currentProject);
+UI.setCreateTodoFormDisplay(false);
 
-displayController.setProjectOptionsDisplay(false);
-// displayController.setProjectOptionsDisplay(true, 100, 100);
+UI.setProjectOptionsDisplay(false);
+// UI.setProjectOptionsDisplay(true, 100, 100);
