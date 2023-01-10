@@ -1,3 +1,5 @@
+import { Actions } from '../../classes/static/Actions';
+
 export function TodoListItem(todo) {
   // <div class="todo">
   //   <div><i class="fa-solid fa-square-check clickable"></i></div>
@@ -14,7 +16,7 @@ export function TodoListItem(todo) {
   //     <div>yyyy-mm-dd</div>
   //   </div>
   //   <div><i class="fa-solid fa-star clickable"></i></div>
-  //   <div><i class="fa-solid fa-ellipsis-vertical clickable"></i></div>
+  //   <div><i class="fa-solid fa-trash clickable"></i></div>
   // </div>
 
   if (!todo) return;
@@ -30,14 +32,14 @@ export function TodoListItem(todo) {
   const dueDateElem = document.createElement('div');
   const starIconContainer = document.createElement('div');
   const starIcon = document.createElement('i');
-  const ellipsisVIconContainer = document.createElement('div');
-  const ellipsisVIcon = document.createElement('i');
+  const trashIconContainer = document.createElement('div');
+  const trashIcon = document.createElement('i');
 
   todoElem.appendChild(checkedCheckboxIconContainer);
   todoElem.appendChild(infoContainer);
   todoElem.appendChild(dueDateContainer);
   todoElem.appendChild(starIconContainer);
-  todoElem.appendChild(ellipsisVIconContainer);
+  todoElem.appendChild(trashIconContainer);
 
   todoElem.className = 'todo';
   checkedCheckboxIcon.className = 'fa-solid fa-square-check clickable';
@@ -46,7 +48,7 @@ export function TodoListItem(todo) {
   dueDateLabel.textContent = 'Due Date:';
   dueDateElem.textContent = todo.dueDate;
   starIcon.className = 'fa-solid fa-star clickable';
-  ellipsisVIcon.className = 'fa-solid fa-ellipsis-vertical clickable';
+  trashIcon.className = 'fa-solid fa-trash clickable';
 
   checkedCheckboxIconContainer.appendChild(checkedCheckboxIcon);
 
@@ -58,7 +60,11 @@ export function TodoListItem(todo) {
 
   starIconContainer.appendChild(starIcon);
 
-  ellipsisVIconContainer.appendChild(ellipsisVIcon);
+  trashIconContainer.appendChild(trashIcon);
+
+  trashIconContainer.onclick = () => {
+    Actions.removeTodoFromCurrentProject(todo);
+  };
 
   return todoElem;
 }

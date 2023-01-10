@@ -48,7 +48,8 @@ export class Project {
     if (!(todo instanceof Todo)) {
       return;
     }
-    this.#todoList.filter((t) => t !== todo);
+    this.#todoList = this.#todoList.filter((t) => t !== todo);
+    Storage.setProject(this);
   }
 
   toJSON = function () {
