@@ -70,8 +70,15 @@ export class UI {
   /* PUBLIC METHODS */
   static setProjectMenuItems(projects = []) {
     UI.projectMenuItemsContainer.replaceChildren();
-    for (const project of projects) {
-      UI.projectMenuItemsContainer.appendChild(ProjectMenuItem(project));
+    if (Storage.projectList.length === 1) {
+      UI.projectMenuItemsContainer.appendChild(
+        ProjectMenuItem(projects[0], false)
+      );
+    }
+    if (Storage.projectList.length > 1) {
+      for (const project of projects) {
+        UI.projectMenuItemsContainer.appendChild(ProjectMenuItem(project));
+      }
     }
     UI.projectMenuItemsContainer.appendChild(UI.addProjectClickDivElem);
   }

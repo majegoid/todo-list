@@ -264,6 +264,19 @@ header > h1 > i {
   /* background-color: red; */
 }
 
+.menu-item > div:has(i) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 32px;
+}
+
+.menu-item > div:hover:has(i.clickable) {
+  cursor: pointer;
+  color: #aaa;
+}
+
 .menu-item-active {
   padding: 0 20px 0 16px;
   border-left: 4px solid var(--dark-green-1);
@@ -357,10 +370,6 @@ main {
   color: #aaa;
 }
 
-/* .todo > div:hover:has(i.checkbox) {
-  cursor: pointer;
-  color: #ccc;
-} */
 /* END TO-DOs */
 
 .hidden {
