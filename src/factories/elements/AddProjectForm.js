@@ -1,4 +1,6 @@
-export function AddProjectForm(addClickHandler, cancelClickHandler) {
+import { Actions } from '../../classes/static/Actions';
+
+export function AddProjectForm() {
   // <div class="menu-item menu-item-form">
   //   <div><i class="fa-solid fa-list-check"></i><input type="text" /></div>
   //   <div>
@@ -33,11 +35,11 @@ export function AddProjectForm(addClickHandler, cancelClickHandler) {
   buttonsDiv.appendChild(cancelButton);
 
   addButton.onclick = () => {
-    addClickHandler(titleInput.value);
+    Actions.addProjectHandler(titleInput.value);
     titleInput.value = '';
   };
   cancelButton.onclick = () => {
-    cancelClickHandler();
+    Actions.closeAddProjectFormHandler();
     titleInput.value = '';
   };
 

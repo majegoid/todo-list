@@ -60,10 +60,10 @@ export class Todo {
 
   toJSON = function () {
     return {
-      title: this.#title,
-      description: this.#description,
-      isComplete: this.#isComplete,
-      dueDate: format(this.#dueDate, 'MM/dd/yyyy'),
+      title: this.title,
+      description: this.description,
+      isComplete: this.isComplete,
+      dueDate: this.dueDate,
     };
   };
 }

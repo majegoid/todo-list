@@ -1,6 +1,6 @@
 import { parse } from 'date-fns';
-import { Project } from './Project';
-import { Todo } from './Todo';
+import { Project } from '../data/Project';
+import { Todo } from '../data/Todo';
 
 export class Storage {
   static projectList = [];
@@ -87,10 +87,12 @@ export class Storage {
   }
 
   static loadProjects() {
-    for (let i = 0; i < localStorage.length; i++) {
-      let projectName = localStorage.key(i);
+    this.projectList = [];
+    let keys = Object.keys(localStorage);
+    keys.sort();
+    for (const key of keys) {
       let projectData = JSON.parse(
-        localStorage.getItem(projectName),
+        localStorage.getItem(key),
         function (key, value) {
           if (key === 'dueDate') return parse(value, 'MM/dd/yyyy', new Date());
           return value;
@@ -102,6 +104,7 @@ export class Storage {
         new Project(projectData.title, projectData.todoList)
       );
     }
+    return [...this.projectList];
   }
 
   static saveProjects() {

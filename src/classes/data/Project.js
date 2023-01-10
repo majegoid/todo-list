@@ -36,6 +36,6 @@ export class Project {
   }
 
   toJSON = function () {
-    return { title: this.#title, todoList: [...this.#todoList] };
+    return { title: this.title, todoList: [...this.todoList] };
   };
 }

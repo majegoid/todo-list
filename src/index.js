@@ -1,5 +1,5 @@
-import { Storage } from './classes/Storage';
-import { displayController } from './modules/displayController';
+import { Storage } from './classes/static/Storage';
+import { UI } from './classes/static/UI';
 import './styles/index.css';
 
 if (localStorage.length === 0) {
@@ -10,12 +10,13 @@ Storage.loadProjects();
 
 Storage.currentProject = Storage.projectList[0];
 
+UI.setup();
 // projects
-displayController.setProjectMenuItems(Storage.projectList);
-displayController.setAddProjectFormDisplay(false);
+UI.setProjectMenuItems(Storage.projectList);
+UI.setAddProjectFormDisplay(false);
 // todos
-displayController.setProject(Storage.currentProject);
-displayController.setCreateTodoFormDisplay(false);
+UI.setProject(Storage.currentProject);
+UI.setCreateTodoFormDisplay(false);
 
-displayController.setProjectOptionsDisplay(false);
-// displayController.setProjectOptionsDisplay(true, 100, 100);
+UI.setProjectOptionsDisplay(false);
+// UI.setProjectOptionsDisplay(true, 100, 100);

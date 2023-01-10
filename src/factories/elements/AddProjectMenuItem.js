@@ -1,4 +1,6 @@
-export function AddProjectMenuItem(clickHandler) {
+import { UI } from '../../classes/static/UI';
+
+export function AddProjectMenuItem() {
   // <div class="menu-item">
   //   <i class="fa-solid fa-plus"></i>Add Project
   // </div>;
@@ -12,7 +14,9 @@ export function AddProjectMenuItem(clickHandler) {
   menuItemDiv.appendChild(plusIcon);
   menuItemDiv.appendChild(document.createTextNode('Add Project'));
 
-  menuItemDiv.onclick = clickHandler;
+  menuItemDiv.onclick = () => {
+    UI.setAddProjectFormDisplay(true);
+  };
 
   return menuItemDiv;
 }
