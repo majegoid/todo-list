@@ -1,3 +1,4 @@
+import { Storage } from '../static/Storage';
 import { Todo } from './Todo';
 
 export class Project {
@@ -24,15 +25,30 @@ export class Project {
   }
 
   set todoList(value) {
-    if (typeof value !== 'object' || !(value instanceof Array)) {
+    if (!(value instanceof Array)) {
       return;
     }
-    for (const elem of value) {
-      if (typeof elem !== 'object' || !(value instanceof Todo)) {
+    for (const todo of value) {
+      if (!(todo instanceof Todo)) {
         return;
       }
     }
     this.#todoList = value;
+  }
+
+  addTodo(todo) {
+    if (!(todo instanceof Todo)) {
+      return;
+    }
+    this.#todoList.push(todo);
+    Storage.setProject(this);
+  }
+
+  removeTodo(todo) {
+    if (!(todo instanceof Todo)) {
+      return;
+    }
+    this.#todoList.filter((t) => t !== todo);
   }
 
   toJSON = function () {

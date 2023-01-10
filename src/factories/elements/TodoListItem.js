@@ -1,5 +1,3 @@
-import { format } from 'date-fns';
-
 export function TodoListItem(todo) {
   // <div class="todo">
   //   <div><i class="fa-solid fa-square-check clickable"></i></div>
@@ -46,7 +44,7 @@ export function TodoListItem(todo) {
   titleElem.textContent = todo.title;
   descriptionElem.textContent = todo.description;
   dueDateLabel.textContent = 'Due Date:';
-  dueDateElem.textContent = format(todo.dueDate, 'MM/dd/yyyy');
+  dueDateElem.textContent = todo.dueDate;
   starIcon.className = 'fa-solid fa-star clickable';
   ellipsisVIcon.className = 'fa-solid fa-ellipsis-vertical clickable';
 

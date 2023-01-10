@@ -11,7 +11,7 @@ export class Storage {
   }
 
   static set currentProject(value) {
-    if (typeof value === 'object' && value instanceof Project) {
+    if (value instanceof Project) {
       this.#currentProject = value;
     }
   }
@@ -88,16 +88,27 @@ export class Storage {
 
   static loadProjects() {
     this.projectList = [];
-    let keys = Object.keys(localStorage);
-    keys.sort();
-    for (const key of keys) {
-      let projectData = JSON.parse(
-        localStorage.getItem(key),
-        function (key, value) {
-          if (key === 'dueDate') return parse(value, 'MM/dd/yyyy', new Date());
-          return value;
+    let localStorageKeys = Object.keys(localStorage);
+    localStorageKeys.sort();
+    for (const localStorageKey of localStorageKeys) {
+      let projectString = localStorage.getItem(localStorageKey);
+      let projectData = JSON.parse(projectString, function (key, value) {
+        if (key === 'todoList') {
+          let todoList = value;
+          let replacementList = [];
+          for (let i = 0; i < todoList.length; i++) {
+            let replacementTodo = new Todo(
+              todoList[i].title,
+              todoList[i].description,
+              todoList[i].isComplete,
+              parse(todoList[i].dueDate, 'MM/dd/yyyy', new Date())
+            );
+            replacementList.push(replacementTodo);
+          }
+          return replacementList;
         }
-      );
+        return value;
+      });
 
       // check project data matches the right structure:
       this.projectList.push(
@@ -112,5 +123,13 @@ export class Storage {
     for (const project of this.projectList) {
       localStorage.setItem(project.title, JSON.stringify(project));
     }
+  }
+
+  static setProject(project) {
+    localStorage.setItem(project.title, JSON.stringify(project));
+  }
+
+  static getProject(projectTitle) {
+    localStorage.getItem(projectTitle);
   }
 }

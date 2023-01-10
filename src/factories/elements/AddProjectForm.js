@@ -35,11 +35,11 @@ export function AddProjectForm() {
   buttonsDiv.appendChild(cancelButton);
 
   addButton.onclick = () => {
-    Actions.addProjectHandler(titleInput.value);
+    Actions.addProject(titleInput.value);
     titleInput.value = '';
   };
   cancelButton.onclick = () => {
-    Actions.closeAddProjectFormHandler();
+    Actions.closeAddProjectForm();
     titleInput.value = '';
   };
 
