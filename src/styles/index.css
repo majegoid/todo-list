@@ -264,7 +264,7 @@ header > h1 > i {
   /* background-color: red; */
 }
 
-.menu-item > div:has(i) {
+.menu-item > div:has(i):not(:has(input)) {
   display: flex;
   justify-content: center;
   align-items: center;

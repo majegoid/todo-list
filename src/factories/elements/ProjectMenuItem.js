@@ -3,7 +3,9 @@ import { Actions } from '../../classes/static/Actions';
 export function ProjectMenuItem(project, isDeletable = true) {
   // <div class="menu-item">
   //   <i class="fa-solid fa-list-check"></i>Your Project #1
-  //   <i class="fa-solid fa-trash"></i>
+  //   <div>
+  //     <i class="fa-solid fa-trash clickable"></i>
+  //   </div>
   // </div>
 
   const projectMenuItemDiv = document.createElement('div');
