@@ -47,7 +47,7 @@ export class UI {
   }
 
   /* PRIVATE METHODS */
-  static setTodos(todos = []) {
+  static #setTodos(todos = []) {
     UI.todosContainer.replaceChildren();
     for (const todo of todos) {
       UI.todosContainer.appendChild(TodoListItem(todo));
@@ -61,7 +61,7 @@ export class UI {
     UI.projectMenuItemsContainer.replaceChildren();
     for (const project of projects) {
       UI.projectMenuItemsContainer.appendChild(
-        ProjectMenuItem(project, () => UI.setProject(project))
+        ProjectMenuItem(project)
       );
     }
     UI.projectMenuItemsContainer.appendChild(UI.addProjectClickDivElem);
@@ -76,7 +76,7 @@ export class UI {
 
     // change active class of project
     projectNameH1.textContent = project.title;
-    UI.setTodos(project.todoList);
+    UI.#setTodos(project.todoList);
   }
 
   static setCreateTodoFormDisplay(isShown = true) {

@@ -17,4 +17,9 @@ export class Actions {
     // closes the AddProjectForm
     UI.setAddProjectFormDisplay(false);
   }
+
+  static makeActiveProjectHandler(project) {
+    // TODO: change active class styles
+    UI.setProject(project);
+  }
 }
