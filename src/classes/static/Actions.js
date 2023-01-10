@@ -26,6 +26,12 @@ export class Actions {
 
   static addTodoToCurrentProject(todo) {
     Storage.currentProject.addTodo(todo);
+    UI.setProject(Storage.currentProject);
+  }
+
+  static removeTodoFromCurrentProject(todo) {
+    Storage.currentProject.removeTodo(todo);
+    UI.setProject(Storage.currentProject);
   }
 
   static openAddTodoForm() {
