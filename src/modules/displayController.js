@@ -65,9 +65,15 @@ export const displayController = (function () {
       if (projectTitle !== '') {
         // creates and adds a new project to localStorage
         const newProject = new Project(projectTitle, []);
-        localStorage.setItem(newProject.title, newProject.todoList);
+        localStorage.setItem(newProject.title, JSON.stringify(newProject));
         if (newProject.todoList.length === 0) {
-          localStorage.setItem(newProject.title, '[]');
+          localStorage.setItem(
+            newProject.title,
+            JSON.stringify({
+              ...newProject,
+              todoList: '[]',
+            })
+          );
         }
       }
       setAddProjectFormDisplay(false);
