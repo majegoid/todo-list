@@ -53,8 +53,10 @@ export class Todo {
   }
 
   set dueDate(value) {
-    if (typeof value === 'object') {
+    if (value instanceof Date) {
       this.#dueDate = value;
+    } else {
+      throw new Error('dueDate is not a date');
     }
   }
 

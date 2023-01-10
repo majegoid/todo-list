@@ -5,6 +5,7 @@ import { AddTodoForm } from '../../factories/elements/AddTodoForm';
 import { ProjectMenuItem } from '../../factories/elements/ProjectMenuItem';
 import { ProjectOptionsPopup } from '../../factories/elements/ProjectOptionsPopup';
 import { TodoListItem } from '../../factories/elements/TodoListItem';
+import { Storage } from './Storage';
 
 export class UI {
   // containers
@@ -44,6 +45,16 @@ export class UI {
       // if no element in the hierarchy from the clicked element was clicked:
       UI.setAddProjectFormDisplay(false);
     };
+
+    // projects
+    UI.setProjectMenuItems(Storage.projectList);
+    UI.setAddProjectFormDisplay(false);
+    // todos
+    UI.setProject(Storage.currentProject);
+    UI.setCreateTodoFormDisplay(false);
+
+    UI.setProjectOptionsDisplay(false);
+    // UI.setProjectOptionsDisplay(true, 100, 100);
   }
 
   /* PRIVATE METHODS */
@@ -60,9 +71,7 @@ export class UI {
   static setProjectMenuItems(projects = []) {
     UI.projectMenuItemsContainer.replaceChildren();
     for (const project of projects) {
-      UI.projectMenuItemsContainer.appendChild(
-        ProjectMenuItem(project)
-      );
+      UI.projectMenuItemsContainer.appendChild(ProjectMenuItem(project));
     }
     UI.projectMenuItemsContainer.appendChild(UI.addProjectClickDivElem);
   }

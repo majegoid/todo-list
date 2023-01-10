@@ -3,7 +3,7 @@ import { Storage } from './Storage';
 import { UI } from './UI';
 
 export class Actions {
-  static addProjectHandler(projectTitle) {
+  static addProject(projectTitle) {
     if (projectTitle !== '') {
       // creates and adds a new project to localStorage
       const newProject = new Project(projectTitle, []);
@@ -13,13 +13,26 @@ export class Actions {
     UI.setProjectMenuItems(Storage.loadProjects());
   }
 
-  static closeAddProjectFormHandler() {
+  static closeAddProjectForm() {
     // closes the AddProjectForm
     UI.setAddProjectFormDisplay(false);
   }
 
-  static makeActiveProjectHandler(project) {
+  static makeProjectActive(project) {
     // TODO: change active class styles
+    Storage.currentProject = project;
     UI.setProject(project);
+  }
+
+  static addTodoToCurrentProject(todo) {
+    Storage.currentProject.addTodo(todo);
+  }
+
+  static openAddTodoForm() {
+    UI.setCreateTodoFormDisplay(true);
+  }
+
+  static closeAddTodoForm() {
+    UI.setCreateTodoFormDisplay(false);
   }
 }

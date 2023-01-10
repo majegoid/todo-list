@@ -1,3 +1,9 @@
+import { parse } from 'date-fns';
+import { Todo } from '../../classes/data/Todo';
+import { Actions } from '../../classes/static/Actions';
+import { Storage } from '../../classes/static/Storage';
+import { UI } from '../../classes/static/UI';
+
 export function AddTodoForm(
   initialState = {
     title: '',
@@ -45,15 +51,10 @@ export function AddTodoForm(
   const descriptionInput = document.createElement('input');
   const dateDueDiv = document.createElement('div');
   const dateDueLabel = document.createElement('label');
-  const dateDueInput = document.createElement('input');
+  const dueDateInput = document.createElement('input');
   const buttonsDiv = document.createElement('div');
   const addButton = document.createElement('button');
   const cancelButton = document.createElement('button');
-
-  formElem.novalidate = true;
-  formElem.onsubmit = function (e) {
-    e.preventDefault();
-  };
 
   formTitleH2.textContent = 'Create Todo';
 
@@ -75,17 +76,19 @@ export function AddTodoForm(
 
   dateDueLabel.for = 'date-due';
   dateDueLabel.textContent = 'Due Date:';
-  dateDueInput.type = 'date';
-  dateDueInput.id = 'date-due';
-  dateDueInput.name = 'date-due';
-  dateDueInput.placeholder = 'mm/dd/yyyy';
-  dateDueInput.value = initialState.dueDate;
+  dueDateInput.type = 'date';
+  dueDateInput.id = 'date-due';
+  dueDateInput.name = 'date-due';
+  dueDateInput.placeholder = 'mm/dd/yyyy';
+  dueDateInput.value = initialState.dueDate;
 
   addButton.className = 'button-green';
   addButton.textContent = 'Add';
+  addButton.type = 'submit';
   cancelButton.className = 'button-red';
   cancelButton.textContent = 'Cancel';
 
+  formElem.novalidate = true;
   formElem.appendChild(formTitleH2);
   formElem.appendChild(titleDiv);
   formElem.appendChild(descriptionDiv);
@@ -99,10 +102,45 @@ export function AddTodoForm(
   descriptionDiv.appendChild(descriptionInput);
 
   dateDueDiv.appendChild(dateDueLabel);
-  dateDueDiv.appendChild(dateDueInput);
+  dateDueDiv.appendChild(dueDateInput);
 
   buttonsDiv.appendChild(addButton);
   buttonsDiv.appendChild(cancelButton);
+
+  function isFormDataValid() {
+    if (titleInput.value === '') {
+      return false;
+    }
+    if (descriptionInput.value === '') {
+      return false;
+    }
+    if (
+      dueDateInput.value === '' ||
+      dueDateInput.value === undefined ||
+      dueDateInput.value === null
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+    if (isFormDataValid()) {
+      const todo = new Todo(
+        titleInput.value,
+        descriptionInput.value,
+        false,
+        parse(dueDateInput.value, 'yyyy-MM-dd', new Date())
+      );
+      Actions.addTodoToCurrentProject(todo);
+      Actions.closeAddTodoForm();
+      UI.setProject(Storage.currentProject);
+    }
+  }
+
+  formElem.onsubmit = submitForm;
+  cancelButton.onclick = Actions.closeAddTodoForm;
 
   return formElem;
 }

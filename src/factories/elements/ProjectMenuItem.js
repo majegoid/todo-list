@@ -21,7 +21,7 @@ export function ProjectMenuItem(project) {
   projectMenuItemDiv.appendChild(projectMenuItemDivText);
   projectMenuItemDiv.appendChild(ellipsisVIcon);
 
-  projectMenuItemDiv.onclick = () => Actions.makeActiveProjectHandler(project);
+  projectMenuItemDiv.onclick = () => Actions.makeProjectActive(project);
 
   return projectMenuItemDiv;
 }

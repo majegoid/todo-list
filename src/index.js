@@ -7,16 +7,6 @@ if (localStorage.length === 0) {
 }
 
 Storage.loadProjects();
-
 Storage.currentProject = Storage.projectList[0];
 
 UI.setup();
-// projects
-UI.setProjectMenuItems(Storage.projectList);
-UI.setAddProjectFormDisplay(false);
-// todos
-UI.setProject(Storage.currentProject);
-UI.setCreateTodoFormDisplay(false);
-
-UI.setProjectOptionsDisplay(false);
-// UI.setProjectOptionsDisplay(true, 100, 100);

@@ -1,3 +1,5 @@
+import { Actions } from '../../classes/static/Actions';
+
 export function AddTodo() {
   // <div class="menu-item" style="justify-content: flex-start; gap: 16px">
   //   <i class="fa-solid fa-plus clickable"></i>Add Todo
@@ -12,6 +14,8 @@ export function AddTodo() {
 
   menuItemDiv.appendChild(plusIcon);
   menuItemDiv.appendChild(document.createTextNode('Add Todo'));
+
+  menuItemDiv.onclick = () => Actions.openAddTodoForm();
 
   return menuItemDiv;
 }
