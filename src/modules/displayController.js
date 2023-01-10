@@ -8,7 +8,7 @@ import { ProjectOptionsPopup } from '../factories/elements/ProjectOptionsPopup';
 import { TodoListItem } from '../factories/elements/TodoListItem';
 
 export const displayController = (function () {
-  // containers
+  // containerS
   const todosContainer = document.querySelector('#todos-container');
   const createTodoFormContainer = document.querySelector(
     '#create-todo-form-container'
@@ -20,24 +20,6 @@ export const displayController = (function () {
   // instantiated elements
   const addTodoFormElem = AddTodoForm();
   const addTodoClickDivElem = AddTodo();
-
-  const addProjectFormElem = AddProjectForm(
-    function (projectTitle) {
-      if (projectTitle !== '') {
-        // creates and adds a new project to localStorage
-        const newProject = new Project(projectTitle, []);
-        localStorage.setItem(newProject.title, newProject.todoList);
-        if (newProject.todoList.length === 0) {
-          localStorage.setItem(newProject.title, '[]');
-        }
-      }
-      setAddProjectFormDisplay(false);
-    },
-    function () {
-      // closes the AddProjectForm
-      setAddProjectFormDisplay(false);
-    }
-  );
 
   const addProjectClickDivElem = AddProjectMenuItem(function () {
     setAddProjectFormDisplay(true);
@@ -67,10 +49,41 @@ export const displayController = (function () {
     setAddProjectFormDisplay(false);
   };
 
+  /* PRIVATE METHODS */
+  function setTodos(todos = []) {
+    todosContainer.replaceChildren();
+    for (const todo of todos) {
+      todosContainer.appendChild(TodoListItem(todo));
+    }
+    todosContainer.appendChild(addTodoClickDivElem);
+  }
+  /* END PRIVATE METHODS */
+
+  /* PUBLIC METHODS */
+  const addProjectFormElem = AddProjectForm(
+    function (projectTitle) {
+      if (projectTitle !== '') {
+        // creates and adds a new project to localStorage
+        const newProject = new Project(projectTitle, []);
+        localStorage.setItem(newProject.title, newProject.todoList);
+        if (newProject.todoList.length === 0) {
+          localStorage.setItem(newProject.title, '[]');
+        }
+      }
+      setAddProjectFormDisplay(false);
+    },
+    function () {
+      // closes the AddProjectForm
+      setAddProjectFormDisplay(false);
+    }
+  );
+
   function setProjectMenuItems(projects = []) {
     projectMenuItemsContainer.replaceChildren();
     for (const project of projects) {
-      projectMenuItemsContainer.appendChild(ProjectMenuItem(project));
+      projectMenuItemsContainer.appendChild(
+        ProjectMenuItem(project, () => setProject(project))
+      );
     }
     projectMenuItemsContainer.appendChild(addProjectClickDivElem);
   }
@@ -85,14 +98,6 @@ export const displayController = (function () {
     // change active class of project
     projectNameH1.textContent = project.title;
     setTodos(project.todoList);
-  }
-
-  function setTodos(todos = []) {
-    todosContainer.replaceChildren();
-    for (const todo of todos) {
-      todosContainer.appendChild(TodoListItem(todo));
-    }
-    todosContainer.appendChild(addTodoClickDivElem);
   }
 
   function setCreateTodoFormDisplay(isShown = true) {
@@ -139,6 +144,8 @@ export const displayController = (function () {
       popup.style.display = 'none';
     }
   }
+
+  /* END PUBLIC METHODS */
 
   return {
     setProject,

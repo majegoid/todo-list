@@ -1,4 +1,4 @@
-export function ProjectMenuItem(project) {
+export function ProjectMenuItem(project, makeActiveProjectHandler) {
   // <div class="menu-item">
   //   <i class="fa-solid fa-list-check"></i>Your Project #1
   //   <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -19,7 +19,7 @@ export function ProjectMenuItem(project) {
   projectMenuItemDiv.appendChild(projectMenuItemDivText);
   projectMenuItemDiv.appendChild(ellipsisVIcon);
 
-  projectMenuItemDiv.onclick = () => {}
+  projectMenuItemDiv.onclick = makeActiveProjectHandler;
 
   return projectMenuItemDiv;
 }
