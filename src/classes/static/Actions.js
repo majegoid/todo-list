@@ -24,6 +24,15 @@ export class Actions {
     UI.setProject(project);
   }
 
+  static removeProject(project) {
+    let prevProject = Storage.currentProject;
+    Storage.removeProject(project.title);
+    UI.setProjectMenuItems(Storage.projectList);
+    if (prevProject === project) {
+      UI.setProject(Storage.currentProject);
+    }
+  }
+
   static addTodoToCurrentProject(todo) {
     Storage.currentProject.addTodo(todo);
     UI.setProject(Storage.currentProject);

@@ -110,7 +110,6 @@ export class Storage {
         return value;
       });
 
-      // check project data matches the right structure:
       this.projectList.push(
         new Project(projectData.title, projectData.todoList)
       );
@@ -126,10 +125,22 @@ export class Storage {
   }
 
   static setProject(project) {
+    this.projectList = this.projectList.filter((p) => p !== project);
     localStorage.setItem(project.title, JSON.stringify(project));
   }
 
   static getProject(projectTitle) {
-    localStorage.getItem(projectTitle);
+    return localStorage.getItem(projectTitle);
+  }
+
+  static removeProject(projectTitle) {
+    if (this.projectList.length === 1) {
+      return; //delete doesn't work on the last project
+    }
+    this.projectList = this.projectList.filter((p) => p.title !== projectTitle);
+    localStorage.removeItem(projectTitle);
+    if (this.currentProject.title === projectTitle) {
+      this.currentProject = this.projectList[0];
+    }
   }
 }
