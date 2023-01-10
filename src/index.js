@@ -14,7 +14,7 @@ Storage.currentProject = Storage.projectList[0];
 displayController.setProjectMenuItems(Storage.projectList);
 displayController.setAddProjectFormDisplay(false);
 // todos
-displayController.setTodos(Storage.currentProject.todoList);
+displayController.setProject(Storage.currentProject);
 displayController.setCreateTodoFormDisplay(false);
 
 displayController.setProjectOptionsDisplay(false);

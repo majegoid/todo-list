@@ -75,6 +75,18 @@ export const displayController = (function () {
     projectMenuItemsContainer.appendChild(addProjectClickDivElem);
   }
 
+  function setProject(project) {
+    // <div><h1>Project Name</h1></div>
+    // <div id="todos-container" class="todos-container"></div>
+    // <div id="create-todo-form-container"></div>
+    const mainElement = document.querySelector('main');
+    const projectNameH1 = mainElement.querySelector('div > h1');
+
+    // change active class of project
+    projectNameH1.textContent = project.title;
+    setTodos(project.todoList);
+  }
+
   function setTodos(todos = []) {
     todosContainer.replaceChildren();
     for (const todo of todos) {
@@ -129,7 +141,7 @@ export const displayController = (function () {
   }
 
   return {
-    setTodos,
+    setProject,
     setProjectMenuItems,
     setCreateTodoFormDisplay,
     setAddProjectFormDisplay,

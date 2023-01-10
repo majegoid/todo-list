@@ -19,5 +19,7 @@ export function ProjectMenuItem(project) {
   projectMenuItemDiv.appendChild(projectMenuItemDivText);
   projectMenuItemDiv.appendChild(ellipsisVIcon);
 
+  projectMenuItemDiv.onclick = () => {}
+
   return projectMenuItemDiv;
 }
