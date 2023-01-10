@@ -57,4 +57,13 @@ export class Todo {
       this.#dueDate = value;
     }
   }
+
+  toJSON = function () {
+    return {
+      title: this.#title,
+      description: this.#description,
+      isComplete: this.#isComplete,
+      dueDate: format(this.#dueDate, 'MM/dd/yyyy'),
+    };
+  };
 }

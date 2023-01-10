@@ -23,13 +23,14 @@ export const displayController = (function () {
 
   const addProjectFormElem = AddProjectForm(
     function (projectTitle) {
-      // creates and adds a new project to localStorage
-      const newProject = new Project(projectTitle, []);
-      localStorage.setItem(
-        newProject.title,
-        newProject.todoList
-        // JSON.stringify(newProject.todoList, null, 2)
-      );
+      if (projectTitle !== '') {
+        // creates and adds a new project to localStorage
+        const newProject = new Project(projectTitle, []);
+        localStorage.setItem(newProject.title, newProject.todoList);
+        if (newProject.todoList.length === 0) {
+          localStorage.setItem(newProject.title, '[]');
+        }
+      }
       setAddProjectFormDisplay(false);
     },
     function () {

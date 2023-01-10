@@ -34,4 +34,8 @@ export class Project {
     }
     this.#todoList = value;
   }
+
+  toJSON = function () {
+    return { title: this.#title, todoList: [...this.#todoList] };
+  };
 }
