@@ -2,8 +2,12 @@ import { parse } from 'date-fns';
 import { Project } from '../data/Project';
 import { Todo } from '../data/Todo';
 
+/** Persists projects to localStorage. */
 export class Persistence {
+  // FIXME: Remove projectList and currentProject and refactor code
+  /** Represents a copy of localStorage(?) */
   static projectList = [];
+  /** Represents the project currently being displayed. */
   static #currentProject = undefined;
 
   static get currentProject() {
@@ -16,7 +20,7 @@ export class Persistence {
     }
   }
 
-  // add seed data to localstorage if its empty.
+  /** Add seed data to localStorage if its empty. */
   static seedData() {
     const todo1 = new Todo(
       'Todo #1',
@@ -87,6 +91,7 @@ export class Persistence {
     }
   }
 
+  /** Loads all localStorage key-value-pairs into projectList. */
   static loadProjects() {
     this.projectList = [];
     let localStorageKeys = Object.keys(localStorage);
@@ -118,6 +123,7 @@ export class Persistence {
     return [...this.projectList];
   }
 
+  /** Clears and then sets localStorage with each project from projectList. */
   static saveProjects() {
     localStorage.clear();
     for (const project of this.projectList) {
@@ -125,16 +131,20 @@ export class Persistence {
     }
   }
 
+  /** Sets one project in localStorage. */
   static setProject(project) {
     this.projectList = this.projectList.filter((p) => p !== project);
     localStorage.setItem(project.title, JSON.stringify(project));
     Persistence.loadProjects();
   }
 
+  /** Gets one project from localStorage by key (Project Title). */
   static getProject(projectTitle) {
     return localStorage.getItem(projectTitle);
   }
 
+  /** Removes a project from localStorage by key (Project Title). Does not remove the last project
+   * in the projectList. */
   static removeProject(projectTitle) {
     if (this.projectList.length === 1) {
       return; //delete doesn't work on the last project

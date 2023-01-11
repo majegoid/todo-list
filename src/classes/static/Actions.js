@@ -5,7 +5,9 @@ import { Persistence } from './Persistence';
 import { TodoFilters } from './TodoFilters';
 import { UI } from './UI';
 
+/** Contains all user-level Actions for the app. */
 export class Actions {
+  /**  */
   static addProject(projectTitle) {
     if (projectTitle !== '') {
       // creates and adds a new project to localStorage
