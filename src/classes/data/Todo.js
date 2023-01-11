@@ -44,16 +44,14 @@ export class Todo {
     }
   }
 
-  // FIXME: rename property to isCompleted
   /** Gets whether or not the todo is completed. */
   get isCompleted() {
     return this.#isCompleted;
   }
 
-  // FIXME: value check is not supposed to be string
   /** TODO: Sets if the todo is complete. */
   set isCompleted(value) {
-    if (typeof value === 'string') {
+    if (typeof value === 'boolean') {
       this.#isCompleted = value;
     }
   }
