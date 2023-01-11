@@ -106,7 +106,7 @@ export class Persistence {
             let replacementTodo = new Todo(
               todoList[i].title,
               todoList[i].description,
-              todoList[i].isComplete,
+              todoList[i].isCompleted,
               parse(todoList[i].dueDate, 'MM/dd/yyyy', new Date())
             );
             replacementList.push(replacementTodo);

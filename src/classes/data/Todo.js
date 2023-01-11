@@ -1,22 +1,22 @@
 import { endOfDay, format } from 'date-fns';
 
-/** A Todo has a title, description, isComplete, and dueDate. */
+/** A Todo has a title, description, isCompleted, and dueDate. */
 export class Todo {
   #title;
   #description;
-  #isComplete;
+  #isCompleted;
   #dueDate;
 
-  /** Constructor defaults isComplete to false and the dueDate as the end of today. */
+  /** Constructor defaults isCompleted to false and the dueDate as the end of today. */
   constructor(
     title = 'default title',
     description = 'default description',
-    isComplete = false,
+    isCompleted = false,
     dueDate = endOfDay(Date.now())
   ) {
     this.#title = title;
     this.#description = description;
-    this.#isComplete = isComplete;
+    this.#isCompleted = isCompleted;
     this.#dueDate = dueDate;
   }
 
@@ -46,15 +46,15 @@ export class Todo {
 
   // FIXME: rename property to isCompleted
   /** Gets whether or not the todo is completed. */
-  get isComplete() {
-    return this.#isComplete;
+  get isCompleted() {
+    return this.#isCompleted;
   }
 
   // FIXME: value check is not supposed to be string
   /** TODO: Sets if the todo is complete. */
-  set isComplete(value) {
+  set isCompleted(value) {
     if (typeof value === 'string') {
-      this.#isComplete = value;
+      this.#isCompleted = value;
     }
   }
 
@@ -78,7 +78,7 @@ export class Todo {
     return {
       title: this.title,
       description: this.description,
-      isComplete: this.isComplete,
+      isCompleted: this.isCompleted,
       dueDate: this.dueDate,
     };
   };

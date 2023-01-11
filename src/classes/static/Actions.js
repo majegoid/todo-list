@@ -5,7 +5,8 @@ import { Persistence } from './Persistence';
 import { TodoFilters } from './TodoFilters';
 import { UI } from './UI';
 
-/** Contains all user-level Actions for the app. */
+/** Contains all user-level Actions for the app. Each action may be a combination of UI and
+ * Persistence methods. */
 export class Actions {
   /** Adds a new Project to localStorage, hides the Add Project Form, and sets the Project Menu
    * Items with the new Project.*/
