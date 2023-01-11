@@ -74,6 +74,10 @@ export class UI {
     UI.dueTodayTodosMenuItem.onclick = () => {
       Actions.setDueTodayTodosView();
     };
+
+    UI.dueThisWeekTodosMenuItem.onclick = () => {
+      Actions.setDueThisWeekTodos();
+    };
   }
 
   /* PRIVATE METHODS */

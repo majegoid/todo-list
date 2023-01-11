@@ -1,4 +1,4 @@
-import { isToday, parse } from 'date-fns';
+import { isThisWeek, isToday, parse } from 'date-fns';
 import { Project } from '../data/Project';
 import { Persistence } from './Persistence';
 import { UI } from './UI';
@@ -73,5 +73,18 @@ export class Actions {
       }
     }
     UI.setProject(new Project('Due Today', dueTodayTodos));
+  }
+
+  static setDueThisWeekTodos() {
+    let dueThisWeekTodos = [];
+    for (const project of Persistence.projectList) {
+      for (const todo of project.todoList) {
+        const todoDueDateAsDate = parse(todo.dueDate, 'MM/dd/yyyy', new Date());
+        if (isThisWeek(todoDueDateAsDate)) {
+          dueThisWeekTodos.push(todo);
+        }
+      }
+    }
+    UI.setProject(new Project('Due This Week', dueThisWeekTodos));
   }
 }
