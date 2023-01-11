@@ -2,6 +2,7 @@ import { UI } from '../../classes/static/UI';
 
 /** Creates an AddProjectMenuItem Clickable Div Element and returns it. */
 export function AddProjectMenuItem() {
+  // RESULT HTML
   // <div class="menu-item">
   //   <i class="fa-solid fa-plus"></i>Add Project
   // </div>;

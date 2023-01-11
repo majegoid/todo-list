@@ -1,5 +1,6 @@
 /** Creates a ProjectOptionsPopup and returns it. */
 export function ProjectOptionsPopup(xPos = 0, yPos = 0) {
+  // Does nothing if xPos and yPos aren't both numbers that are not NaN.
   if (
     typeof xPos !== 'number' ||
     Number.isNaN(xPos) ||
@@ -9,6 +10,7 @@ export function ProjectOptionsPopup(xPos = 0, yPos = 0) {
     return;
   }
 
+  // RESULT HTML
   // <div class="menu-item-options-popup">
   //   <button class="button-green">Rename</button>
   //   <button class="button-red">Delete</button>

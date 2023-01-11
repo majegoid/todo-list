@@ -2,6 +2,7 @@ import { Actions } from '../../classes/static/Actions';
 
 /** Creates an AddTodo Clickable Div Element and returns it. */
 export function AddTodo() {
+  // RESULT HTML
   // <div class="menu-item" style="justify-content: flex-start; gap: 16px">
   //   <i class="fa-solid fa-plus clickable"></i>Add Todo
   // </div>

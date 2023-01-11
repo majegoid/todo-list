@@ -12,6 +12,7 @@ export function AddTodoForm(
     dueDate: new Date(Date.now() + 86400000),
   }
 ) {
+  // RESULT HTML
   // <form novalidate onsubmit="event.preventDefault();">
   //   <h2>Create Todo</h2>
   //   <div>

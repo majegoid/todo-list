@@ -2,6 +2,7 @@ import { Actions } from '../../classes/static/Actions';
 
 /** Creates a ProjectMenuItem and returns it. */
 export function ProjectMenuItem(project, isDeletable = true) {
+  // RESULT HTML
   // <div class="menu-item">
   //   <i class="fa-solid fa-list-check"></i>Your Project #1
   //   <div>

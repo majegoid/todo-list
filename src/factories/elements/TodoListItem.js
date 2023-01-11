@@ -1,5 +1,6 @@
 /** Creates a TodoListItem and returns it. */
 export function TodoListItem(todo, deleteHandler) {
+  // RESULT HTML
   // <div class="todo">
   //   <div><i class="fa-solid fa-square-check clickable"></i></div>
   //   <div>
