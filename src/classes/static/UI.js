@@ -8,8 +8,9 @@ import { TodoListItem } from '../../factories/elements/TodoListItem';
 import { Actions } from './Actions';
 import { Persistence } from './Persistence';
 
+/** Contains functions that replace parts of the document with newly generated HTML. */
 export class UI {
-  // containers
+  // Container elements (Targets for replacement)
   static body = document.querySelector('body');
   static todosContainer = document.querySelector('#todos-container');
   static allTodosMenuItem = document.querySelector('#all-todos-menu-item');
@@ -28,18 +29,34 @@ export class UI {
   static projectMenuItemsContainer = document.querySelector(
     '#project-menu-items-container'
   );
-  // instantiated elements
+  static todoListTitle = document.querySelector('main > div > h1');
+
+  // Elements that only need to be instantiated once.
+  // Forms
   static addTodoFormElem = AddTodoForm();
+  static addProjectFormElem = AddProjectForm();
+  // Add object Click Divs
   static addTodoClickDivElem = AddTodo();
   static addProjectClickDivElem = AddProjectMenuItem();
-  static addProjectFormElem = AddProjectForm();
-  // popups
+  // Popups
   static popup = ProjectOptionsPopup(0, 0);
 
+  /** Runs the initial setup of the UI. */
   static setup() {
+    // Append elements
     UI.body.appendChild(UI.popup);
 
-    // detect clicks outside of specific elements
+    // Set the Project Menu Items and Project Form
+    UI.setProjectMenuItems(Persistence.projectList);
+    UI.setAddProjectFormDisplay(false);
+    // Set the Project (Todo List) and Todo Form
+    UI.setProject(Persistence.currentProject);
+    UI.setCreateTodoFormDisplay(false);
+    // Set ProjectOptionsPopup display
+    UI.setProjectOptionsDisplay(false);
+
+    // Event Listeners
+    // Detect clicks outside of specific elements
     document.onclick = function (e) {
       let targetEl = e.target; // the clicked element
 
@@ -53,20 +70,14 @@ export class UI {
         targetEl = targetEl.parentNode; // go up one element from the target.
       } while (targetEl);
 
-      // if no element in the hierarchy from the clicked element was clicked:
+      // If no element in the hierarchy from the clicked element was clicked:
+      // 1) Close all forms.
       UI.setAddProjectFormDisplay(false);
+      UI.setCreateTodoFormDisplay(false);
     };
 
-    // projects
-    UI.setProjectMenuItems(Persistence.projectList);
-    UI.setAddProjectFormDisplay(false);
-    // todos
-    UI.setProject(Persistence.currentProject);
-    UI.setCreateTodoFormDisplay(false);
-
-    UI.setProjectOptionsDisplay(false);
-    // UI.setProjectOptionsDisplay(true, 100, 100);
-
+    // FIXME: Refactor these into element factories
+    // Adds All Todos filter
     UI.allTodosMenuItem.onclick = () => {
       Actions.setAllTodosView();
     };
@@ -81,6 +92,7 @@ export class UI {
   }
 
   /* PRIVATE METHODS */
+  /** Sets the Todo List Item display using a Todo[]. */
   static #setTodos(todos = []) {
     UI.todosContainer.replaceChildren();
     for (const todo of todos) {
@@ -89,6 +101,7 @@ export class UI {
     UI.todosContainer.appendChild(UI.addTodoClickDivElem);
   }
 
+  /** Sets the Todo List Item display using a TodoListItem[]. */
   static #setTodoListItems(todoListItems = []) {
     UI.todosContainer.replaceChildren();
     for (const todoListItem of todoListItems) {
@@ -99,6 +112,7 @@ export class UI {
   /* END PRIVATE METHODS */
 
   /* PUBLIC METHODS */
+  /** Sets all Project Menu Items using a Project[].*/
   static setProjectMenuItems(projects = []) {
     UI.projectMenuItemsContainer.replaceChildren();
     if (Persistence.projectList.length === 1) {
@@ -114,29 +128,19 @@ export class UI {
     UI.projectMenuItemsContainer.appendChild(UI.addProjectClickDivElem);
   }
 
-  /** Sets the UI for a Project */
+  /** Sets the Todo List title and Todo List Items using a Project. */
   static setProject(project) {
-    // <div><h1>Project Name</h1></div>
-    // <div id="todos-container" class="todos-container"></div>
-    // <div id="create-todo-form-container"></div>
-    const mainElement = document.querySelector('main');
-    const projectNameH1 = mainElement.querySelector('div > h1');
-
-    // change active class of project
-    projectNameH1.textContent = project.title;
+    UI.todoListTitle.textContent = project.title;
     UI.#setTodos(project.todoList);
   }
 
-  /** Sets the UI for a Todo Filter */
+  /** Sets the Todo List title and Todo List Items using a Title and TodoListItem[]. */
   static setTodoFilter(title, todoListItems) {
-    const mainElement = document.querySelector('main');
-    const todoFilterLabel = mainElement.querySelector('div > h1');
-
-    todoFilterLabel.textContent = title;
-
+    UI.todoListTitle.textContent = title;
     UI.#setTodoListItems(todoListItems);
   }
 
+  /** Sets the Add Todo Form display and Add Todo Click Div display together. */
   static setCreateTodoFormDisplay(isShown = true) {
     // show
     if (isShown && UI.todosContainer.contains(UI.addTodoClickDivElem)) {
@@ -154,6 +158,7 @@ export class UI {
     }
   }
 
+  /** Sets the Add Project Form display and Add Project Click Div display together. */
   static setAddProjectFormDisplay(isShown = true) {
     // show
     if (
@@ -177,6 +182,7 @@ export class UI {
     }
   }
 
+  /** Sets the position and show value for the ProjectOptionsMenu. */
   static setProjectOptionsDisplay(isShown = true, xPos = 0, yPos = 0) {
     if (isShown) {
       UI.popup.style.display = 'flex';
