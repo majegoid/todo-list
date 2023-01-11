@@ -2,7 +2,7 @@ import { parse } from 'date-fns';
 import { Project } from '../data/Project';
 import { Todo } from '../data/Todo';
 
-export class Storage {
+export class Persistence {
   static projectList = [];
   static #currentProject = undefined;
 
@@ -83,6 +83,7 @@ export class Storage {
 
     for (const project of projectList) {
       localStorage.setItem(project.title, JSON.stringify(project));
+      Persistence.projectList.push(project);
     }
   }
 

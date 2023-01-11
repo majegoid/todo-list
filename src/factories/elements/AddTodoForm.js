@@ -1,7 +1,7 @@
 import { parse } from 'date-fns';
 import { Todo } from '../../classes/data/Todo';
 import { Actions } from '../../classes/static/Actions';
-import { Storage } from '../../classes/static/Storage';
+import { Persistence } from '../../classes/static/Persistence';
 import { UI } from '../../classes/static/UI';
 
 export function AddTodoForm(
@@ -135,7 +135,7 @@ export function AddTodoForm(
       );
       Actions.addTodoToCurrentProject(todo);
       Actions.closeAddTodoForm();
-      UI.setProject(Storage.currentProject);
+      UI.setProject(Persistence.currentProject);
     }
   }
 

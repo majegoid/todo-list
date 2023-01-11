@@ -1,5 +1,5 @@
 import { Project } from '../data/Project';
-import { Storage } from './Storage';
+import { Persistence } from './Persistence';
 import { UI } from './UI';
 
 export class Actions {
@@ -10,7 +10,7 @@ export class Actions {
       localStorage.setItem(newProject.title, JSON.stringify(newProject));
     }
     UI.setAddProjectFormDisplay(false);
-    UI.setProjectMenuItems(Storage.loadProjects());
+    UI.setProjectMenuItems(Persistence.loadProjects());
   }
 
   static closeAddProjectForm() {
@@ -20,27 +20,27 @@ export class Actions {
 
   static makeProjectActive(project) {
     // TODO: change active class styles
-    Storage.currentProject = project;
+    Persistence.currentProject = project;
     UI.setProject(project);
   }
 
   static removeProject(project) {
-    let prevProject = Storage.currentProject;
-    Storage.removeProject(project.title);
-    UI.setProjectMenuItems(Storage.projectList);
+    let prevProject = Persistence.currentProject;
+    Persistence.removeProject(project.title);
+    UI.setProjectMenuItems(Persistence.projectList);
     if (prevProject === project) {
-      UI.setProject(Storage.currentProject);
+      UI.setProject(Persistence.currentProject);
     }
   }
 
   static addTodoToCurrentProject(todo) {
-    Storage.currentProject.addTodo(todo);
-    UI.setProject(Storage.currentProject);
+    Persistence.currentProject.addTodo(todo);
+    UI.setProject(Persistence.currentProject);
   }
 
   static removeTodoFromCurrentProject(todo) {
-    Storage.currentProject.removeTodo(todo);
-    UI.setProject(Storage.currentProject);
+    Persistence.currentProject.removeTodo(todo);
+    UI.setProject(Persistence.currentProject);
   }
 
   static openAddTodoForm() {
@@ -49,5 +49,15 @@ export class Actions {
 
   static closeAddTodoForm() {
     UI.setCreateTodoFormDisplay(false);
+  }
+
+  static setAllTodosView() {
+    let allTodos = [];
+    for (const project of Persistence.projectList) {
+      for (const todo of project.todoList) {
+        allTodos.push(todo);
+      }
+    }
+    UI.setProject(new Project('All Tasks', allTodos));
   }
 }

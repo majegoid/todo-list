@@ -5,12 +5,23 @@ import { AddTodoForm } from '../../factories/elements/AddTodoForm';
 import { ProjectMenuItem } from '../../factories/elements/ProjectMenuItem';
 import { ProjectOptionsPopup } from '../../factories/elements/ProjectOptionsPopup';
 import { TodoListItem } from '../../factories/elements/TodoListItem';
-import { Storage } from './Storage';
+import { Actions } from './Actions';
+import { Persistence } from './Persistence';
 
 export class UI {
   // containers
   static body = document.querySelector('body');
   static todosContainer = document.querySelector('#todos-container');
+  static allTodosMenuItem = document.querySelector('#all-todos-menu-item');
+  static dueTodayTodosMenuItem = document.querySelector(
+    '#due-today-todos-menu-item'
+  );
+  static dueThisWeekTodosMenuItem = document.querySelector(
+    '#due-this-week-todos-menu-item'
+  );
+  static starredTodosMenuItem = document.querySelector(
+    '#starred-todos-menu-item'
+  );
   static createTodoFormContainer = document.querySelector(
     '#create-todo-form-container'
   );
@@ -47,14 +58,18 @@ export class UI {
     };
 
     // projects
-    UI.setProjectMenuItems(Storage.projectList);
+    UI.setProjectMenuItems(Persistence.projectList);
     UI.setAddProjectFormDisplay(false);
     // todos
-    UI.setProject(Storage.currentProject);
+    UI.setProject(Persistence.currentProject);
     UI.setCreateTodoFormDisplay(false);
 
     UI.setProjectOptionsDisplay(false);
     // UI.setProjectOptionsDisplay(true, 100, 100);
+
+    UI.allTodosMenuItem.onclick = () => {
+      Actions.setAllTodosView();
+    };
   }
 
   /* PRIVATE METHODS */
@@ -70,12 +85,12 @@ export class UI {
   /* PUBLIC METHODS */
   static setProjectMenuItems(projects = []) {
     UI.projectMenuItemsContainer.replaceChildren();
-    if (Storage.projectList.length === 1) {
+    if (Persistence.projectList.length === 1) {
       UI.projectMenuItemsContainer.appendChild(
         ProjectMenuItem(projects[0], false)
       );
     }
-    if (Storage.projectList.length > 1) {
+    if (Persistence.projectList.length > 1) {
       for (const project of projects) {
         UI.projectMenuItemsContainer.appendChild(ProjectMenuItem(project));
       }

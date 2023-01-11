@@ -1,4 +1,4 @@
-import { Storage } from '../static/Storage';
+import { Persistence } from '../static/Persistence';
 import { Todo } from './Todo';
 
 export class Project {
@@ -41,7 +41,7 @@ export class Project {
       return;
     }
     this.#todoList.push(todo);
-    Storage.setProject(this);
+    Persistence.setProject(this);
   }
 
   removeTodo(todo) {
@@ -49,7 +49,7 @@ export class Project {
       return;
     }
     this.#todoList = this.#todoList.filter((t) => t !== todo);
-    Storage.setProject(this);
+    Persistence.setProject(this);
   }
 
   toJSON = function () {
