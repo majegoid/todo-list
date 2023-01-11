@@ -1,6 +1,8 @@
 import { isThisWeek, isToday, parse } from 'date-fns';
+import { TodoListItem } from '../../factories/elements/TodoListItem';
 import { Project } from '../data/Project';
 import { Persistence } from './Persistence';
+import { TodoFilters } from './TodoFilters';
 import { UI } from './UI';
 
 export class Actions {
@@ -44,6 +46,11 @@ export class Actions {
     UI.setProject(Persistence.currentProject);
   }
 
+  static removeTodoFromProject(project, todo, refreshHandler) {
+    project.removeTodo(todo);
+    refreshHandler();
+  }
+
   static openAddTodoForm() {
     UI.setCreateTodoFormDisplay(true);
   }
@@ -52,14 +59,35 @@ export class Actions {
     UI.setCreateTodoFormDisplay(false);
   }
 
+  // static setAllTodosView() {
+  //   let todoListItems = [];
+  //   for (const project of Persistence.projectList) {
+  //     for (const todo of project.todoList) {
+  //       todoListItems.push(TodoListItem());
+  //     }
+  //   }
+  //   UI.setProject(new Project('All Todos', todoListItems));
+  // }
+
+  // Sets the "All Todos" View
   static setAllTodosView() {
-    let allTodos = [];
+    let todoListItems = [];
     for (const project of Persistence.projectList) {
       for (const todo of project.todoList) {
-        allTodos.push(todo);
+        if (TodoFilters.isTodo(todo)) {
+          todoListItems.push(
+            TodoListItem(todo, () => {
+              Actions.removeTodoFromProject(
+                project,
+                todo,
+                Actions.setAllTodosView
+              );
+            })
+          );
+        }
       }
     }
-    UI.setProject(new Project('All Tasks', allTodos));
+    UI.setTodoFilter('All Todos', todoListItems);
   }
 
   static setDueTodayTodosView() {

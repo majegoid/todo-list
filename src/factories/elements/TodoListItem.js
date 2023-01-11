@@ -1,6 +1,4 @@
-import { Actions } from '../../classes/static/Actions';
-
-export function TodoListItem(todo) {
+export function TodoListItem(todo, deleteHandler) {
   // <div class="todo">
   //   <div><i class="fa-solid fa-square-check clickable"></i></div>
   //   <div>
@@ -62,9 +60,7 @@ export function TodoListItem(todo) {
 
   trashIconContainer.appendChild(trashIcon);
 
-  trashIconContainer.onclick = () => {
-    Actions.removeTodoFromCurrentProject(todo);
-  };
+  trashIconContainer.onclick = deleteHandler;
 
   return todoElem;
 }

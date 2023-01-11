@@ -88,6 +88,14 @@ export class UI {
     }
     UI.todosContainer.appendChild(UI.addTodoClickDivElem);
   }
+
+  static #setTodoListItems(todoListItems = []) {
+    UI.todosContainer.replaceChildren();
+    for (const todoListItem of todoListItems) {
+      UI.todosContainer.appendChild(todoListItem);
+    }
+    UI.todosContainer.appendChild(UI.addTodoClickDivElem);
+  }
   /* END PRIVATE METHODS */
 
   /* PUBLIC METHODS */
@@ -106,6 +114,7 @@ export class UI {
     UI.projectMenuItemsContainer.appendChild(UI.addProjectClickDivElem);
   }
 
+  /** Sets the UI for a Project */
   static setProject(project) {
     // <div><h1>Project Name</h1></div>
     // <div id="todos-container" class="todos-container"></div>
@@ -116,6 +125,16 @@ export class UI {
     // change active class of project
     projectNameH1.textContent = project.title;
     UI.#setTodos(project.todoList);
+  }
+
+  /** Sets the UI for a Todo Filter */
+  static setTodoFilter(title, todoListItems) {
+    const mainElement = document.querySelector('main');
+    const todoFilterLabel = mainElement.querySelector('div > h1');
+
+    todoFilterLabel.textContent = title;
+
+    UI.#setTodoListItems(todoListItems);
   }
 
   static setCreateTodoFormDisplay(isShown = true) {

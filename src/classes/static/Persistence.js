@@ -128,6 +128,7 @@ export class Persistence {
   static setProject(project) {
     this.projectList = this.projectList.filter((p) => p !== project);
     localStorage.setItem(project.title, JSON.stringify(project));
+    Persistence.loadProjects();
   }
 
   static getProject(projectTitle) {
@@ -143,5 +144,6 @@ export class Persistence {
     if (this.currentProject.title === projectTitle) {
       this.currentProject = this.projectList[0];
     }
+    Persistence.loadProjects();
   }
 }
