@@ -4,6 +4,7 @@ import { Actions } from '../../classes/static/Actions';
 import { Persistence } from '../../classes/static/Persistence';
 import { UI } from '../../classes/static/UI';
 
+/** Creates an AddTodoForm and returns it. */
 export function AddTodoForm(
   initialState = {
     title: '',
@@ -41,6 +42,7 @@ export function AddTodoForm(
   //   </div>
   // </form>
 
+  // CREATE ELEMENTS
   const formElem = document.createElement('form');
   const formTitleH2 = document.createElement('h2');
   const titleDiv = document.createElement('div');
@@ -56,10 +58,11 @@ export function AddTodoForm(
   const addButton = document.createElement('button');
   const cancelButton = document.createElement('button');
 
+  // MODIFY ELEMENTS
   formTitleH2.textContent = 'Create Todo';
-
   titleLabel.for = 'title';
   titleLabel.textContent = 'Title:';
+
   titleInput.type = 'text';
   titleInput.id = 'title';
   titleInput.name = 'title';
@@ -68,6 +71,7 @@ export function AddTodoForm(
 
   descriptionLabel.for = 'description';
   descriptionLabel.textContent = 'Description:';
+
   descriptionInput.type = 'text';
   descriptionInput.id = 'description';
   descriptionInput.name = 'description';
@@ -76,6 +80,7 @@ export function AddTodoForm(
 
   dateDueLabel.for = 'date-due';
   dateDueLabel.textContent = 'Due Date:';
+
   dueDateInput.type = 'date';
   dueDateInput.id = 'date-due';
   dueDateInput.name = 'date-due';
@@ -85,10 +90,13 @@ export function AddTodoForm(
   addButton.className = 'button-green';
   addButton.textContent = 'Add';
   addButton.type = 'submit';
+
   cancelButton.className = 'button-red';
   cancelButton.textContent = 'Cancel';
 
   formElem.novalidate = true;
+
+  // APPEND CHILD ELEMENTS TO PARENT ELEMENTS
   formElem.appendChild(formTitleH2);
   formElem.appendChild(titleDiv);
   formElem.appendChild(descriptionDiv);
@@ -107,6 +115,7 @@ export function AddTodoForm(
   buttonsDiv.appendChild(addButton);
   buttonsDiv.appendChild(cancelButton);
 
+  // FUNCTIONS
   function isFormDataValid() {
     if (titleInput.value === '') {
       return false;
@@ -139,6 +148,7 @@ export function AddTodoForm(
     }
   }
 
+  // ADD EVENT HANDLERS
   formElem.onsubmit = submitForm;
   cancelButton.onclick = Actions.closeAddTodoForm;
 
