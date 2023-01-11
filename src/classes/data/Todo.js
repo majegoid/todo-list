@@ -61,13 +61,10 @@ export class Todo {
     return format(this.#dueDate, 'MM/dd/yyyy');
   }
 
-  //FIXME: should not have an error thrown if the value is not a date
   /** Sets the due date of the Todo. Does nothing if the value is not a Date. */
   set dueDate(value) {
     if (value instanceof Date) {
       this.#dueDate = value;
-    } else {
-      throw new Error('dueDate is not a date');
     }
   }
 
