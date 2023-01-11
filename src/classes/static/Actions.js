@@ -7,7 +7,8 @@ import { UI } from './UI';
 
 /** Contains all user-level Actions for the app. */
 export class Actions {
-  /**  */
+  /** Adds a new Project to localStorage, hides the Add Project Form, and sets the Project Menu
+   * Items with the new Project.*/
   static addProject(projectTitle) {
     if (projectTitle !== '') {
       // creates and adds a new project to localStorage
@@ -18,17 +19,22 @@ export class Actions {
     UI.setProjectMenuItems(Persistence.loadProjects());
   }
 
+  /** Closes/Hides the Add Project Form. */
   static closeAddProjectForm() {
     // closes the AddProjectForm
     UI.setAddProjectFormDisplay(false);
   }
 
+  // FIXME: seems like a UI method, shouldn't belong in Actions.js
+  /** Removes the menu-item-active class from all Project Menu Items, and adds it to the active
+   * Project Menu Item. */
   static makeProjectActive(project) {
     // TODO: change active class styles
     Persistence.currentProject = project;
     UI.setProject(project);
   }
 
+  /** Removes a project from localStorage, sets the Project Menu Items display and Todo List display. */
   static removeProject(project) {
     let prevProject = Persistence.currentProject;
     Persistence.removeProject(project.title);
@@ -38,29 +44,36 @@ export class Actions {
     }
   }
 
+  /** Adds a Todo to the current Project in localStorage and refreshes the Todo List display. */
   static addTodoToCurrentProject(todo) {
     Persistence.currentProject.addTodo(todo);
     UI.setProject(Persistence.currentProject);
   }
 
+  /** Removes a todo from the current Project in localStorage and refreshes the Todo List display.*/
   static removeTodoFromCurrentProject(todo) {
     Persistence.currentProject.removeTodo(todo);
     UI.setProject(Persistence.currentProject);
   }
 
+  //FIXME:
+  /** Removes a todo from a particular Project in localStorage and refreshes using any handler. */
   static removeTodoFromProject(project, todo, refreshHandler) {
     project.removeTodo(todo);
     refreshHandler();
   }
 
+  /** Shows the Add Todo Form and hides the Add Todo Click Div. */
   static openAddTodoForm() {
     UI.setCreateTodoFormDisplay(true);
   }
 
+  /** Hides the Add Todo Form and shows the Add Todo Click Div. */
   static closeAddTodoForm() {
     UI.setCreateTodoFormDisplay(false);
   }
 
+  //FIXME: incomplete filter actions
   // static setAllTodosView() {
   //   let todoListItems = [];
   //   for (const project of Persistence.projectList) {
@@ -71,7 +84,7 @@ export class Actions {
   //   UI.setProject(new Project('All Todos', todoListItems));
   // }
 
-  // Sets the "All Todos" View
+  /** Sets the Todo List display with every Todo from every project. */
   static setAllTodosView() {
     let todoListItems = [];
     for (const project of Persistence.projectList) {
@@ -92,6 +105,7 @@ export class Actions {
     UI.setTodoFilter('All Todos', todoListItems);
   }
 
+  /** Sets the Todo List display with Todos that are due today. */
   static setDueTodayTodosView() {
     let dueTodayTodos = [];
     for (const project of Persistence.projectList) {
@@ -105,6 +119,7 @@ export class Actions {
     UI.setProject(new Project('Due Today', dueTodayTodos));
   }
 
+  /** Sets the Todo List display with Todos that are due this week. */
   static setDueThisWeekTodos() {
     let dueThisWeekTodos = [];
     for (const project of Persistence.projectList) {
