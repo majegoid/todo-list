@@ -70,6 +70,10 @@ export class UI {
     UI.allTodosMenuItem.onclick = () => {
       Actions.setAllTodosView();
     };
+
+    UI.dueTodayTodosMenuItem.onclick = () => {
+      Actions.setDueTodayTodosView();
+    };
   }
 
   /* PRIVATE METHODS */

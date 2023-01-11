@@ -1,3 +1,4 @@
+import { isToday, parse } from 'date-fns';
 import { Project } from '../data/Project';
 import { Persistence } from './Persistence';
 import { UI } from './UI';
@@ -59,5 +60,18 @@ export class Actions {
       }
     }
     UI.setProject(new Project('All Tasks', allTodos));
+  }
+
+  static setDueTodayTodosView() {
+    let dueTodayTodos = [];
+    for (const project of Persistence.projectList) {
+      for (const todo of project.todoList) {
+        const todoDueDateAsDate = parse(todo.dueDate, 'MM/dd/yyyy', new Date());
+        if (isToday(todoDueDateAsDate)) {
+          dueTodayTodos.push(todo);
+        }
+      }
+    }
+    UI.setProject(new Project('Due Today', dueTodayTodos));
   }
 }
