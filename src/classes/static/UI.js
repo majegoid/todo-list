@@ -4,23 +4,18 @@ import { AddTodo } from '../../factories/elements/AddTodo';
 import { AddTodoForm } from '../../factories/elements/AddTodoForm';
 import { ProjectMenuItem } from '../../factories/elements/ProjectMenuItem';
 import { ProjectOptionsPopup } from '../../factories/elements/ProjectOptionsPopup';
+import { TodoFilterMenuItem } from '../../factories/elements/TodoFilterMenuItem';
 import { TodoListItem } from '../../factories/elements/TodoListItem';
 import { Actions } from './Actions';
 import { Persistence } from './Persistence';
 
+/** Contains functions that replace parts of the document with newly generated HTML. */
 export class UI {
-  // containers
+  // Container elements (Targets for replacement)
   static body = document.querySelector('body');
   static todosContainer = document.querySelector('#todos-container');
-  static allTodosMenuItem = document.querySelector('#all-todos-menu-item');
-  static dueTodayTodosMenuItem = document.querySelector(
-    '#due-today-todos-menu-item'
-  );
-  static dueThisWeekTodosMenuItem = document.querySelector(
-    '#due-this-week-todos-menu-item'
-  );
-  static starredTodosMenuItem = document.querySelector(
-    '#starred-todos-menu-item'
+  static projectFiltersContainer = document.querySelector(
+    '#project-filters-container'
   );
   static createTodoFormContainer = document.querySelector(
     '#create-todo-form-container'
@@ -28,18 +23,36 @@ export class UI {
   static projectMenuItemsContainer = document.querySelector(
     '#project-menu-items-container'
   );
-  // instantiated elements
+  static todoListTitle = document.querySelector('main > div > h1');
+
+  // Display Elements
+  // Forms
   static addTodoFormElem = AddTodoForm();
+  static addProjectFormElem = AddProjectForm();
+  // Add object Click Divs
   static addTodoClickDivElem = AddTodo();
   static addProjectClickDivElem = AddProjectMenuItem();
-  static addProjectFormElem = AddProjectForm();
-  // popups
+  // Popups
   static popup = ProjectOptionsPopup(0, 0);
 
+  /** Runs the initial setup of the UI. */
   static setup() {
+    // Append elements
     UI.body.appendChild(UI.popup);
 
-    // detect clicks outside of specific elements
+    UI.setTodoFilterMenuItems();
+
+    // Set the Project Menu Items and Project Form
+    UI.setProjectMenuItems(Persistence.projectList);
+    UI.setAddProjectFormDisplay(false);
+    // Set the Project (Todo List) and Todo Form
+    UI.setProject(Persistence.currentProject);
+    UI.setCreateTodoFormDisplay(false);
+    // Set ProjectOptionsPopup display
+    UI.setProjectOptionsDisplay(false);
+
+    // Event Listeners
+    // Detect clicks outside of specific elements
     document.onclick = function (e) {
       let targetEl = e.target; // the clicked element
 
@@ -53,34 +66,15 @@ export class UI {
         targetEl = targetEl.parentNode; // go up one element from the target.
       } while (targetEl);
 
-      // if no element in the hierarchy from the clicked element was clicked:
+      // If no element in the hierarchy from the clicked element was clicked:
+      // 1) Close all forms.
       UI.setAddProjectFormDisplay(false);
-    };
-
-    // projects
-    UI.setProjectMenuItems(Persistence.projectList);
-    UI.setAddProjectFormDisplay(false);
-    // todos
-    UI.setProject(Persistence.currentProject);
-    UI.setCreateTodoFormDisplay(false);
-
-    UI.setProjectOptionsDisplay(false);
-    // UI.setProjectOptionsDisplay(true, 100, 100);
-
-    UI.allTodosMenuItem.onclick = () => {
-      Actions.setAllTodosView();
-    };
-
-    UI.dueTodayTodosMenuItem.onclick = () => {
-      Actions.setDueTodayTodosView();
-    };
-
-    UI.dueThisWeekTodosMenuItem.onclick = () => {
-      Actions.setDueThisWeekTodos();
+      UI.setCreateTodoFormDisplay(false);
     };
   }
 
   /* PRIVATE METHODS */
+  /** Sets the Todo List Item display using a Todo[]. */
   static #setTodos(todos = []) {
     UI.todosContainer.replaceChildren();
     for (const todo of todos) {
@@ -89,6 +83,7 @@ export class UI {
     UI.todosContainer.appendChild(UI.addTodoClickDivElem);
   }
 
+  /** Sets the Todo List Item display using a TodoListItem[]. */
   static #setTodoListItems(todoListItems = []) {
     UI.todosContainer.replaceChildren();
     for (const todoListItem of todoListItems) {
@@ -99,6 +94,14 @@ export class UI {
   /* END PRIVATE METHODS */
 
   /* PUBLIC METHODS */
+  // /** Removes the menu-item-active class from all Menu Items, and adds it to the active Menu Item.*/
+  // static makeProjectActive(project) {
+  //   // TODO: change active class styles
+  //   Persistence.currentProject = project;
+  //   UI.setProject(project);
+  // }
+
+  /** Sets all Project Menu Items using a Project[].*/
   static setProjectMenuItems(projects = []) {
     UI.projectMenuItemsContainer.replaceChildren();
     if (Persistence.projectList.length === 1) {
@@ -114,29 +117,19 @@ export class UI {
     UI.projectMenuItemsContainer.appendChild(UI.addProjectClickDivElem);
   }
 
-  /** Sets the UI for a Project */
+  /** Sets the Todo List title and Todo List Items using a Project. */
   static setProject(project) {
-    // <div><h1>Project Name</h1></div>
-    // <div id="todos-container" class="todos-container"></div>
-    // <div id="create-todo-form-container"></div>
-    const mainElement = document.querySelector('main');
-    const projectNameH1 = mainElement.querySelector('div > h1');
-
-    // change active class of project
-    projectNameH1.textContent = project.title;
+    UI.todoListTitle.textContent = project.title;
     UI.#setTodos(project.todoList);
   }
 
-  /** Sets the UI for a Todo Filter */
+  /** Sets the Todo List title and Todo List Items using a Title and TodoListItem[]. */
   static setTodoFilter(title, todoListItems) {
-    const mainElement = document.querySelector('main');
-    const todoFilterLabel = mainElement.querySelector('div > h1');
-
-    todoFilterLabel.textContent = title;
-
+    UI.todoListTitle.textContent = title;
     UI.#setTodoListItems(todoListItems);
   }
 
+  /** Sets the Add Todo Form display and Add Todo Click Div display together. */
   static setCreateTodoFormDisplay(isShown = true) {
     // show
     if (isShown && UI.todosContainer.contains(UI.addTodoClickDivElem)) {
@@ -154,6 +147,7 @@ export class UI {
     }
   }
 
+  /** Sets the Add Project Form display and Add Project Click Div display together. */
   static setAddProjectFormDisplay(isShown = true) {
     // show
     if (
@@ -177,6 +171,7 @@ export class UI {
     }
   }
 
+  /** Sets the position and show value for the ProjectOptionsMenu. */
   static setProjectOptionsDisplay(isShown = true, xPos = 0, yPos = 0) {
     if (isShown) {
       UI.popup.style.display = 'flex';
@@ -185,6 +180,62 @@ export class UI {
     }
     if (!isShown) {
       UI.popup.style.display = 'none';
+    }
+  }
+
+  /** Sets the Todo Filter Menu Items, highlighting one of them by id. */
+  static setTodoFilterMenuItems(activeId = '') {
+    const todoFilters = {
+      'all-todos-menu-item': {
+        id: 'all-todos-menu-item',
+        iconClass: 'fa-list-check',
+        isActive: false,
+        label: 'All Todos',
+        clickHandler: () => {
+          Actions.setAllTodosView();
+        },
+      },
+      'due-today-todos-menu-item': {
+        id: 'due-today-todos-menu-item',
+        iconClass: 'fa-calendar-day',
+        isActive: false,
+        label: 'Due Today',
+        clickHandler: () => {
+          Actions.setDueTodayTodosView();
+        },
+      },
+      'due-this-week-todos-menu-item': {
+        id: 'due-this-week-todos-menu-item',
+        iconClass: 'fa-calendar-week',
+        isActive: false,
+        label: 'Due This Week',
+        clickHandler: () => {
+          Actions.setDueThisWeekTodos();
+        },
+      },
+    };
+
+    switch (activeId) {
+      case 'all-todos-menu-item':
+      case 'due-today-todos-menu-item':
+      case 'due-this-week-todos-menu-item':
+        todoFilters[activeId].isActive = true;
+        break;
+      default:
+        break;
+    }
+
+    UI.projectFiltersContainer.replaceChildren();
+    for (const todoFilter of Object.values(todoFilters)) {
+      UI.projectFiltersContainer.appendChild(
+        TodoFilterMenuItem(
+          todoFilter.id,
+          todoFilter.iconClass,
+          todoFilter.isActive,
+          todoFilter.label,
+          todoFilter.clickHandler
+        )
+      );
     }
   }
   /* END PUBLIC METHODS */

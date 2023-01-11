@@ -1,4 +1,6 @@
+/** Creates a TodoListItem and returns it. */
 export function TodoListItem(todo, deleteHandler) {
+  // RESULT HTML
   // <div class="todo">
   //   <div><i class="fa-solid fa-square-check clickable"></i></div>
   //   <div>
@@ -19,6 +21,7 @@ export function TodoListItem(todo, deleteHandler) {
 
   if (!todo) return;
 
+  // CREATE ELEMENTS
   const todoElem = document.createElement('div');
   const checkedCheckboxIconContainer = document.createElement('div');
   const checkedCheckboxIcon = document.createElement('i');
@@ -33,20 +36,29 @@ export function TodoListItem(todo, deleteHandler) {
   const trashIconContainer = document.createElement('div');
   const trashIcon = document.createElement('i');
 
+  // MODIFY ELEMENTS
+  todoElem.className = 'todo';
+
+  checkedCheckboxIcon.className = 'fa-solid fa-square-check clickable';
+
+  titleElem.textContent = todo.title;
+
+  descriptionElem.textContent = todo.description;
+
+  dueDateLabel.textContent = 'Due Date:';
+
+  dueDateElem.textContent = todo.dueDate;
+
+  starIcon.className = 'fa-solid fa-star clickable';
+
+  trashIcon.className = 'fa-solid fa-trash clickable';
+
+  // APPEND CHILD ELEMENTS TO PARENT ELEMENTS
   todoElem.appendChild(checkedCheckboxIconContainer);
   todoElem.appendChild(infoContainer);
   todoElem.appendChild(dueDateContainer);
   todoElem.appendChild(starIconContainer);
   todoElem.appendChild(trashIconContainer);
-
-  todoElem.className = 'todo';
-  checkedCheckboxIcon.className = 'fa-solid fa-square-check clickable';
-  titleElem.textContent = todo.title;
-  descriptionElem.textContent = todo.description;
-  dueDateLabel.textContent = 'Due Date:';
-  dueDateElem.textContent = todo.dueDate;
-  starIcon.className = 'fa-solid fa-star clickable';
-  trashIcon.className = 'fa-solid fa-trash clickable';
 
   checkedCheckboxIconContainer.appendChild(checkedCheckboxIcon);
 
@@ -60,6 +72,7 @@ export function TodoListItem(todo, deleteHandler) {
 
   trashIconContainer.appendChild(trashIcon);
 
+  // ADD EVENT HANDLERS
   trashIconContainer.onclick = deleteHandler;
 
   return todoElem;

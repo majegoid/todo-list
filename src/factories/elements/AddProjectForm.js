@@ -1,6 +1,8 @@
 import { Actions } from '../../classes/static/Actions';
 
+/** Creates an AddProjectForm and returns it. */
 export function AddProjectForm() {
+  // RESULT HTML
   // <div class="menu-item menu-item-form">
   //   <div><i class="fa-solid fa-list-check"></i><input type="text" /></div>
   //   <div>
@@ -9,6 +11,7 @@ export function AddProjectForm() {
   //   </div>
   // </div>
 
+  // CREATE ELEMENTS
   const projectFormDiv = document.createElement('div');
   const titleDiv = document.createElement('div');
   const listCheckIcon = document.createElement('i');
@@ -17,14 +20,20 @@ export function AddProjectForm() {
   const addButton = document.createElement('button');
   const cancelButton = document.createElement('button');
 
+  // MODIFY ELEMENTS
   projectFormDiv.className = 'menu-item menu-item-form';
+
   listCheckIcon.className = 'fa-solid fa-list-check';
+
   titleInput.type = 'text';
+
   addButton.className = 'button-green';
   addButton.textContent = 'Add';
+
   cancelButton.className = 'button-red';
   cancelButton.textContent = 'Cancel';
 
+  // APPEND CHILD ELEMENTS TO PARENT ELEMENTS
   projectFormDiv.appendChild(titleDiv);
   projectFormDiv.appendChild(buttonsDiv);
 
@@ -34,10 +43,12 @@ export function AddProjectForm() {
   buttonsDiv.appendChild(addButton);
   buttonsDiv.appendChild(cancelButton);
 
+  // ADD EVENT HANDLERS
   addButton.onclick = () => {
     Actions.addProject(titleInput.value);
     titleInput.value = '';
   };
+
   cancelButton.onclick = () => {
     Actions.closeAddProjectForm();
     titleInput.value = '';
