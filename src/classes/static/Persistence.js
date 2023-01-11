@@ -9,8 +9,8 @@ export class Persistence {
 
   /** Gets projectList with new values from localStorage. */
   static get projectList() {
-    this.#projectList = this.loadProjects();
-    return this.#projectList;
+    Persistence.#projectList = Persistence.loadProjects();
+    return Persistence.#projectList;
   }
 
   /** Represents the project currently being displayed. */
@@ -18,13 +18,13 @@ export class Persistence {
 
   /** Gets the currentProject value. */
   static get currentProject() {
-    return this.#currentProject;
+    return Persistence.#currentProject;
   }
 
   /** Sets the currentProject to value. Does nothing if value is not a Project. */
   static set currentProject(value) {
     if (value instanceof Project) {
-      this.#currentProject = value;
+      Persistence.#currentProject = value;
     }
   }
 
@@ -113,7 +113,7 @@ export class Persistence {
 
     for (const project of projectList) {
       localStorage.setItem(project.title, JSON.stringify(project));
-      this.#projectList.push(project);
+      Persistence.#projectList.push(project);
     }
   }
 
@@ -124,7 +124,10 @@ export class Persistence {
     localStorageKeys.sort();
     for (const localStorageKey of localStorageKeys) {
       const projectString = localStorage.getItem(localStorageKey);
-      const projectData = JSON.parse(projectString, this.#projectReviver);
+      const projectData = JSON.parse(
+        projectString,
+        Persistence.#projectReviver
+      );
       loadedProjects.push(new Project(projectData.title, projectData.todoList));
     }
     return loadedProjects;
@@ -133,7 +136,7 @@ export class Persistence {
   /** Clears and then sets localStorage with each project from projectList. */
   static saveProjects() {
     localStorage.clear();
-    for (const project of this.#projectList) {
+    for (const project of Persistence.#projectList) {
       localStorage.setItem(project.title, JSON.stringify(project));
     }
   }
@@ -141,7 +144,7 @@ export class Persistence {
   /** Sets one project in localStorage. */
   static setProject(project) {
     localStorage.setItem(project.title, JSON.stringify(project));
-    this.loadProjects();
+    Persistence.loadProjects();
   }
 
   /** Gets one project from localStorage by key (Project Title). */
@@ -152,16 +155,16 @@ export class Persistence {
   /** Removes a project from localStorage by key (Project Title). Does not remove the last project
    * in the projectList. */
   static removeProject(projectTitle) {
-    if (this.#projectList.length === 1) {
+    if (Persistence.#projectList.length === 1) {
       return; //delete doesn't work on the last project
     }
-    this.#projectList = this.#projectList.filter(
+    Persistence.#projectList = Persistence.#projectList.filter(
       (p) => p.title !== projectTitle
     );
     localStorage.removeItem(projectTitle);
-    if (this.currentProject.title === projectTitle) {
-      this.currentProject = this.#projectList[0];
+    if (Persistence.currentProject.title === projectTitle) {
+      Persistence.currentProject = Persistence.#projectList[0];
     }
-    this.loadProjects();
+    Persistence.loadProjects();
   }
 }

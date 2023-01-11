@@ -4,6 +4,7 @@ import { AddTodo } from '../../factories/elements/AddTodo';
 import { AddTodoForm } from '../../factories/elements/AddTodoForm';
 import { ProjectMenuItem } from '../../factories/elements/ProjectMenuItem';
 import { ProjectOptionsPopup } from '../../factories/elements/ProjectOptionsPopup';
+import { TodoFilterMenuItem } from '../../factories/elements/TodoFilterMenuItem';
 import { TodoListItem } from '../../factories/elements/TodoListItem';
 import { Actions } from './Actions';
 import { Persistence } from './Persistence';
@@ -13,15 +14,8 @@ export class UI {
   // Container elements (Targets for replacement)
   static body = document.querySelector('body');
   static todosContainer = document.querySelector('#todos-container');
-  static allTodosMenuItem = document.querySelector('#all-todos-menu-item');
-  static dueTodayTodosMenuItem = document.querySelector(
-    '#due-today-todos-menu-item'
-  );
-  static dueThisWeekTodosMenuItem = document.querySelector(
-    '#due-this-week-todos-menu-item'
-  );
-  static starredTodosMenuItem = document.querySelector(
-    '#starred-todos-menu-item'
+  static projectFiltersContainer = document.querySelector(
+    '#project-filters-container'
   );
   static createTodoFormContainer = document.querySelector(
     '#create-todo-form-container'
@@ -31,7 +25,7 @@ export class UI {
   );
   static todoListTitle = document.querySelector('main > div > h1');
 
-  // Elements that only need to be instantiated once.
+  // Display Elements
   // Forms
   static addTodoFormElem = AddTodoForm();
   static addProjectFormElem = AddProjectForm();
@@ -45,6 +39,8 @@ export class UI {
   static setup() {
     // Append elements
     UI.body.appendChild(UI.popup);
+
+    UI.setTodoFilterMenuItems();
 
     // Set the Project Menu Items and Project Form
     UI.setProjectMenuItems(Persistence.projectList);
@@ -74,20 +70,6 @@ export class UI {
       // 1) Close all forms.
       UI.setAddProjectFormDisplay(false);
       UI.setCreateTodoFormDisplay(false);
-    };
-
-    // FIXME: Refactor these into element factories
-    // Adds All Todos filter
-    UI.allTodosMenuItem.onclick = () => {
-      Actions.setAllTodosView();
-    };
-
-    UI.dueTodayTodosMenuItem.onclick = () => {
-      Actions.setDueTodayTodosView();
-    };
-
-    UI.dueThisWeekTodosMenuItem.onclick = () => {
-      Actions.setDueThisWeekTodos();
     };
   }
 
@@ -198,6 +180,62 @@ export class UI {
     }
     if (!isShown) {
       UI.popup.style.display = 'none';
+    }
+  }
+
+  /** Sets the Todo Filter Menu Items, highlighting one of them by id. */
+  static setTodoFilterMenuItems(activeId = '') {
+    const todoFilters = {
+      'all-todos-menu-item': {
+        id: 'all-todos-menu-item',
+        iconClass: 'fa-list-check',
+        isActive: false,
+        label: 'All Todos',
+        clickHandler: () => {
+          Actions.setAllTodosView();
+        },
+      },
+      'due-today-todos-menu-item': {
+        id: 'due-today-todos-menu-item',
+        iconClass: 'fa-calendar-day',
+        isActive: false,
+        label: 'Due Today',
+        clickHandler: () => {
+          Actions.setDueTodayTodosView();
+        },
+      },
+      'due-this-week-todos-menu-item': {
+        id: 'due-this-week-todos-menu-item',
+        iconClass: 'fa-calendar-week',
+        isActive: false,
+        label: 'Due This Week',
+        clickHandler: () => {
+          Actions.setDueThisWeekTodos();
+        },
+      },
+    };
+
+    switch (activeId) {
+      case 'all-todos-menu-item':
+      case 'due-today-todos-menu-item':
+      case 'due-this-week-todos-menu-item':
+        todoFilters[activeId].isActive = true;
+        break;
+      default:
+        break;
+    }
+
+    UI.projectFiltersContainer.replaceChildren();
+    for (const todoFilter of Object.values(todoFilters)) {
+      UI.projectFiltersContainer.appendChild(
+        TodoFilterMenuItem(
+          todoFilter.id,
+          todoFilter.iconClass,
+          todoFilter.isActive,
+          todoFilter.label,
+          todoFilter.clickHandler
+        )
+      );
     }
   }
   /* END PUBLIC METHODS */
