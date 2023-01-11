@@ -94,6 +94,7 @@ export class Actions {
         }
       }
     }
+    UI.setTodoFilterMenuItems('all-todos-menu-item');
     UI.setTodoFilter('All Todos', todoListItems);
   }
 
@@ -108,6 +109,7 @@ export class Actions {
         }
       }
     }
+    UI.setTodoFilterMenuItems('due-today-todos-menu-item');
     UI.setProject(new Project('Due Today', dueTodayTodos));
   }
 
@@ -122,6 +124,7 @@ export class Actions {
         }
       }
     }
+    UI.setTodoFilterMenuItems('due-this-week-todos-menu-item');
     UI.setProject(new Project('Due This Week', dueThisWeekTodos));
   }
 }
