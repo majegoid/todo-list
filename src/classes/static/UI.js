@@ -112,6 +112,13 @@ export class UI {
   /* END PRIVATE METHODS */
 
   /* PUBLIC METHODS */
+  // /** Removes the menu-item-active class from all Menu Items, and adds it to the active Menu Item.*/
+  // static makeProjectActive(project) {
+  //   // TODO: change active class styles
+  //   Persistence.currentProject = project;
+  //   UI.setProject(project);
+  // }
+
   /** Sets all Project Menu Items using a Project[].*/
   static setProjectMenuItems(projects = []) {
     UI.projectMenuItemsContainer.replaceChildren();

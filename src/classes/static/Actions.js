@@ -26,15 +26,6 @@ export class Actions {
     UI.setAddProjectFormDisplay(false);
   }
 
-  // FIXME: seems like a UI method, shouldn't belong in Actions.js
-  /** Removes the menu-item-active class from all Project Menu Items, and adds it to the active
-   * Project Menu Item. */
-  static makeProjectActive(project) {
-    // TODO: change active class styles
-    Persistence.currentProject = project;
-    UI.setProject(project);
-  }
-
   /** Removes a project from localStorage, sets the Project Menu Items display and Todo List display. */
   static removeProject(project) {
     let prevProject = Persistence.currentProject;
