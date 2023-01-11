@@ -1,12 +1,12 @@
-import { Storage } from './classes/static/Storage';
+import { Persistence } from './classes/static/Persistence';
 import { UI } from './classes/static/UI';
 import './styles/index.css';
 
 if (localStorage.length === 0) {
-  Storage.seedData();
+  Persistence.seedData();
 }
 
-Storage.loadProjects();
-Storage.currentProject = Storage.projectList[0];
+Persistence.loadProjects();
+Persistence.currentProject = Persistence.projectList[0];
 
 UI.setup();

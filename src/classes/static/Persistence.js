@@ -2,7 +2,7 @@ import { parse } from 'date-fns';
 import { Project } from '../data/Project';
 import { Todo } from '../data/Todo';
 
-export class Storage {
+export class Persistence {
   static projectList = [];
   static #currentProject = undefined;
 
@@ -83,6 +83,7 @@ export class Storage {
 
     for (const project of projectList) {
       localStorage.setItem(project.title, JSON.stringify(project));
+      Persistence.projectList.push(project);
     }
   }
 
@@ -127,6 +128,7 @@ export class Storage {
   static setProject(project) {
     this.projectList = this.projectList.filter((p) => p !== project);
     localStorage.setItem(project.title, JSON.stringify(project));
+    Persistence.loadProjects();
   }
 
   static getProject(projectTitle) {
@@ -142,5 +144,6 @@ export class Storage {
     if (this.currentProject.title === projectTitle) {
       this.currentProject = this.projectList[0];
     }
+    Persistence.loadProjects();
   }
 }
