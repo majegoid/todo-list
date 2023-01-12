@@ -7,6 +7,9 @@ export class Project {
   #todoList;
 
   constructor(title = '', todoList = []) {
+    if (todoList instanceof Array && todoList[0] instanceof HTMLElement) {
+      throw new Error('Not a Todo');
+    }
     this.#title = title;
     this.#todoList = todoList;
 
