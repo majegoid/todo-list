@@ -58,7 +58,9 @@ export class UI {
       do {
         if (
           targetEl === UI.addProjectClickDivElem ||
-          targetEl === UI.addProjectFormElem
+          targetEl === UI.addProjectFormElem ||
+          targetEl === UI.addTodoClickDivElem ||
+          targetEl === UI.addTodoFormElem
         ) {
           return;
         }
