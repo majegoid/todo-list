@@ -139,6 +139,7 @@ export class UI {
     UI.todoListTitle.textContent = project.title;
     UI.#setTodos(project.todoList);
     Persistence.currentProject = project;
+    UI.updateAddTodoForm(() => Actions.setProjectView(project));
   }
 
   /** Sets the Todo List title and Todo List Items using a Title and TodoListItem[]. */
@@ -255,6 +256,23 @@ export class UI {
           todoFilter.clickHandler
         )
       );
+    }
+  }
+
+  /** Updates the AddTodoForm instance. Replaces the current Add Todo Form if its in the DOM.*/
+  static updateAddTodoForm(refreshHandler = null) {
+    const addTodoFormToRemove = UI.addTodoFormElem;
+    UI.addTodoFormElem = AddTodoForm(
+      {
+        title: '',
+        description: '',
+        dueDate: new Date(Date.now() + 86400000),
+      },
+      refreshHandler
+    );
+    if (UI.createTodoFormContainer.contains(addTodoFormToRemove)) {
+      UI.createTodoFormContainer.removeChild(addTodoFormToRemove);
+      UI.createTodoFormContainer.appendChild(UI.addTodoFormElem);
     }
   }
   /* END PUBLIC METHODS */

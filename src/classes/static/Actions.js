@@ -113,6 +113,7 @@ export class Actions {
     UI.setProjectMenuItems();
     UI.setTodoFilterMenuItems('all-todos-menu-item');
     UI.setTodoFilter('All Todos', todoListItems);
+    UI.updateAddTodoForm(Actions.setAllTodosView);
   }
 
   /** Sets the Todo List display with Todos that are due today. */
@@ -148,6 +149,7 @@ export class Actions {
     UI.setProjectMenuItems();
     UI.setTodoFilterMenuItems('due-today-todos-menu-item');
     UI.setTodoFilter('Due Today', dueTodayTodos);
+    UI.updateAddTodoForm(Actions.setDueTodayTodosView);
   }
 
   /** Sets the Todo List display with Todos that are due this week. */
@@ -183,5 +185,6 @@ export class Actions {
     UI.setProjectMenuItems();
     UI.setTodoFilterMenuItems('due-this-week-todos-menu-item');
     UI.setTodoFilter('Due This Week', dueThisWeekTodos);
+    UI.updateAddTodoForm(Actions.setDueThisWeekTodos);
   }
 }

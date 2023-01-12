@@ -2,7 +2,6 @@ import { parse } from 'date-fns';
 import { Todo } from '../../classes/data/Todo';
 import { Actions } from '../../classes/static/Actions';
 import { Persistence } from '../../classes/static/Persistence';
-import { UI } from '../../classes/static/UI';
 
 /** Creates an AddTodoForm and returns it. */
 export function AddTodoForm(
@@ -10,6 +9,9 @@ export function AddTodoForm(
     title: '',
     description: '',
     dueDate: new Date(Date.now() + 86400000),
+  },
+  refreshHandler = () => {
+    Actions.setAllTodosView();
   }
 ) {
   // RESULT HTML
@@ -147,7 +149,7 @@ export function AddTodoForm(
       Actions.addTodoToCurrentProject(todo);
       Actions.closeAddTodoForm();
       Persistence.currentProject = todo.project;
-      UI.setProject(Persistence.currentProject);
+      refreshHandler();
     }
   }
 
