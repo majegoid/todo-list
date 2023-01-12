@@ -93,7 +93,11 @@ export class Actions {
     for (const project of Persistence.projectList) {
       for (const todo of project.todoList) {
         if (TodoFilters.isTodo(todo)) {
-          todoListItems.push(TodoListItem(todo));
+          todoListItems.push(
+            TodoListItem(todo, () => {
+              Actions.removeTodoFromProject(todo, Actions.setAllTodosView);
+            })
+          );
         }
       }
     }
@@ -109,7 +113,11 @@ export class Actions {
       for (const todo of project.todoList) {
         const todoDueDateAsDate = parse(todo.dueDate, 'MM/dd/yyyy', new Date());
         if (isToday(todoDueDateAsDate)) {
-          dueTodayTodos.push(TodoListItem(todo));
+          dueTodayTodos.push(
+            TodoListItem(todo, () => {
+              Actions.removeTodoFromProject(todo, Actions.setDueTodayTodosView);
+            })
+          );
         }
       }
     }
@@ -125,7 +133,11 @@ export class Actions {
       for (const todo of project.todoList) {
         const todoDueDateAsDate = parse(todo.dueDate, 'MM/dd/yyyy', new Date());
         if (isThisWeek(todoDueDateAsDate)) {
-          dueThisWeekTodos.push(TodoListItem(todo));
+          dueThisWeekTodos.push(
+            TodoListItem(todo, () => {
+              Actions.removeTodoFromProject(todo, Actions.setDueThisWeekTodos);
+            })
+          );
         }
       }
     }
