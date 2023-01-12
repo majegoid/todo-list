@@ -52,57 +52,57 @@ export class Persistence {
       'Todo #1',
       'Description 1',
       false,
-      new Date('2023-01-07T21:00:00')
+      new Date(Date.now())
     );
     const todo2 = new Todo(
       'Todo #2',
       'Description 2',
       false,
-      new Date('2023-01-07T21:00:00')
+      new Date(Date.now())
     );
     const todo3 = new Todo(
       'Todo #3',
       'Description 3',
       false,
-      new Date('2023-01-07T21:00:00')
+      new Date(Date.now())
     );
 
     const todo4 = new Todo(
       'Todo #4',
       'Description 4',
       false,
-      new Date('2023-01-07T21:00:00')
+      new Date(Date.now())
     );
     const todo5 = new Todo(
       'Todo #5',
       'Description 5',
       false,
-      new Date('2023-01-07T21:00:00')
+      new Date(Date.now())
     );
     const todo6 = new Todo(
       'Todo #6',
       'Description 6',
       false,
-      new Date('2023-01-07T21:00:00')
+      new Date(Date.now())
     );
 
     const todo7 = new Todo(
       'Todo #7',
       'Description 7',
       false,
-      new Date('2023-01-07T21:00:00')
+      new Date(Date.now())
     );
     const todo8 = new Todo(
       'Todo #8',
       'Description 8',
       false,
-      new Date('2023-01-07T21:00:00')
+      new Date(Date.now())
     );
     const todo9 = new Todo(
       'Todo #9',
       'Description 9',
       false,
-      new Date('2023-01-07T21:00:00')
+      new Date(Date.now())
     );
 
     const projectList = [
