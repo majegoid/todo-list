@@ -3,6 +3,9 @@ import { Actions } from '../../classes/static/Actions';
 /** Creates a TodoListItem and returns it. */
 export function TodoListItem(
   todo,
+  checkboxHandler = () => {
+    Actions.toggleTodoIsCompleted(todo, Actions.setAllTodosView);
+  },
   deleteHandler = () => {
     Actions.removeTodoFromProject(todo, Actions.setAllTodosView);
   }
@@ -90,9 +93,7 @@ export function TodoListItem(
 
   // ADD EVENT HANDLERS
   if (todo.project !== null) {
-    checkedCheckboxIconContainer.onclick = () => {
-      Actions.toggleTodoIsCompleted(todo);
-    };
+    checkedCheckboxIconContainer.onclick = checkboxHandler;
 
     trashIconContainer.onclick = deleteHandler;
   }

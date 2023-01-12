@@ -53,10 +53,10 @@ export class Actions {
   }
 
   /** Toggles the IsCompleted field for a Todo. Saves all projects as they are. (why?)*/
-  static toggleTodoIsCompleted(todo) {
+  static toggleTodoIsCompleted(todo, refreshHandler) {
     todo.isCompleted = !todo.isCompleted;
     todo.project.setTodo(todo);
-    Actions.setProjectView(todo.project);
+    refreshHandler();
   }
 
   //FIXME:
@@ -94,9 +94,15 @@ export class Actions {
       for (const todo of project.todoList) {
         if (TodoFilters.isTodo(todo)) {
           todoListItems.push(
-            TodoListItem(todo, () => {
-              Actions.removeTodoFromProject(todo, Actions.setAllTodosView);
-            })
+            TodoListItem(
+              todo,
+              () => {
+                Actions.toggleTodoIsCompleted(todo, Actions.setAllTodosView);
+              },
+              () => {
+                Actions.removeTodoFromProject(todo, Actions.setAllTodosView);
+              }
+            )
           );
         }
       }
@@ -114,9 +120,21 @@ export class Actions {
         const todoDueDateAsDate = parse(todo.dueDate, 'MM/dd/yyyy', new Date());
         if (isToday(todoDueDateAsDate)) {
           dueTodayTodos.push(
-            TodoListItem(todo, () => {
-              Actions.removeTodoFromProject(todo, Actions.setDueTodayTodosView);
-            })
+            TodoListItem(
+              todo,
+              () => {
+                Actions.toggleTodoIsCompleted(
+                  todo,
+                  Actions.setDueTodayTodosView
+                );
+              },
+              () => {
+                Actions.removeTodoFromProject(
+                  todo,
+                  Actions.setDueTodayTodosView
+                );
+              }
+            )
           );
         }
       }
@@ -134,9 +152,21 @@ export class Actions {
         const todoDueDateAsDate = parse(todo.dueDate, 'MM/dd/yyyy', new Date());
         if (isThisWeek(todoDueDateAsDate)) {
           dueThisWeekTodos.push(
-            TodoListItem(todo, () => {
-              Actions.removeTodoFromProject(todo, Actions.setDueThisWeekTodos);
-            })
+            TodoListItem(
+              todo,
+              () => {
+                Actions.toggleTodoIsCompleted(
+                  todo,
+                  Actions.setDueThisWeekTodos
+                );
+              },
+              () => {
+                Actions.removeTodoFromProject(
+                  todo,
+                  Actions.setDueThisWeekTodos
+                );
+              }
+            )
           );
         }
       }
