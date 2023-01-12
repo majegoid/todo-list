@@ -70,7 +70,6 @@ export class Actions {
     refreshHandler();
   }
 
-  //FIXME:
   /** Removes a todo from a particular Project in localStorage and refreshes using any handler. */
   static removeTodoFromProject(todo, refreshHandler) {
     todo.project.removeTodo(todo);
