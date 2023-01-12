@@ -61,8 +61,8 @@ export class Actions {
 
   //FIXME:
   /** Removes a todo from a particular Project in localStorage and refreshes using any handler. */
-  static removeTodoFromProject(project, todo, refreshHandler) {
-    project.removeTodo(todo);
+  static removeTodoFromProject(todo, refreshHandler) {
+    todo.project.removeTodo(todo);
     refreshHandler();
   }
 
@@ -93,7 +93,11 @@ export class Actions {
     for (const project of Persistence.projectList) {
       for (const todo of project.todoList) {
         if (TodoFilters.isTodo(todo)) {
-          todoListItems.push(TodoListItem(todo));
+          todoListItems.push(
+            TodoListItem(todo, () => {
+              Actions.removeTodoFromProject(todo, Actions.setAllTodosView);
+            })
+          );
         }
       }
     }
@@ -109,13 +113,17 @@ export class Actions {
       for (const todo of project.todoList) {
         const todoDueDateAsDate = parse(todo.dueDate, 'MM/dd/yyyy', new Date());
         if (isToday(todoDueDateAsDate)) {
-          dueTodayTodos.push(TodoListItem(todo));
+          dueTodayTodos.push(
+            TodoListItem(todo, () => {
+              Actions.removeTodoFromProject(todo, Actions.setDueTodayTodosView);
+            })
+          );
         }
       }
     }
     UI.setProjectMenuItems();
     UI.setTodoFilterMenuItems('due-today-todos-menu-item');
-    UI.setProject(new Project('Due Today', dueTodayTodos));
+    UI.setTodoFilter('Due Today', dueTodayTodos);
   }
 
   /** Sets the Todo List display with Todos that are due this week. */
@@ -125,12 +133,16 @@ export class Actions {
       for (const todo of project.todoList) {
         const todoDueDateAsDate = parse(todo.dueDate, 'MM/dd/yyyy', new Date());
         if (isThisWeek(todoDueDateAsDate)) {
-          dueThisWeekTodos.push(TodoListItem(todo));
+          dueThisWeekTodos.push(
+            TodoListItem(todo, () => {
+              Actions.removeTodoFromProject(todo, Actions.setDueThisWeekTodos);
+            })
+          );
         }
       }
     }
     UI.setProjectMenuItems();
     UI.setTodoFilterMenuItems('due-this-week-todos-menu-item');
-    UI.setProject(new Project('Due This Week', dueThisWeekTodos));
+    UI.setTodoFilter('Due This Week', dueThisWeekTodos);
   }
 }

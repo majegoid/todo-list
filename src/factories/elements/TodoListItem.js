@@ -1,7 +1,12 @@
 import { Actions } from '../../classes/static/Actions';
 
 /** Creates a TodoListItem and returns it. */
-export function TodoListItem(todo) {
+export function TodoListItem(
+  todo,
+  deleteHandler = () => {
+    Actions.removeTodoFromProject(todo, Actions.setAllTodosView);
+  }
+) {
   // RESULT HTML
   // <div class="todo">
   //   <div><i class="fa-solid fa-square-check clickable"></i></div>
@@ -89,9 +94,7 @@ export function TodoListItem(todo) {
       Actions.toggleTodoIsCompleted(todo);
     };
 
-    trashIconContainer.onclick = () => {
-      Actions.removeTodoFromProject(todo, Actions.setAllTodosView);
-    };
+    trashIconContainer.onclick = deleteHandler;
   }
 
   return todoElem;

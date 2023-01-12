@@ -77,7 +77,13 @@ export class UI {
   static #setTodos(todos = []) {
     UI.todosContainer.replaceChildren();
     for (const todo of todos) {
-      UI.todosContainer.appendChild(TodoListItem(todo));
+      UI.todosContainer.appendChild(
+        TodoListItem(todo, () => {
+          Actions.removeTodoFromProject(todo, () =>
+            Actions.setProjectView(todo.project)
+          );
+        })
+      );
     }
     UI.todosContainer.appendChild(UI.addTodoClickDivElem);
   }
