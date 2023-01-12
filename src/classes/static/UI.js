@@ -257,5 +257,22 @@ export class UI {
       );
     }
   }
+
+  /** Updates the AddTodoForm instance. Replaces the current Add Todo Form if its in the DOM.*/
+  static updateAddTodoForm(refreshHandler = null) {
+    const addTodoFormToRemove = UI.addTodoFormElem;
+    UI.addTodoFormElem = AddTodoForm(
+      {
+        title: '',
+        description: '',
+        dueDate: new Date(Date.now() + 86400000),
+      },
+      refreshHandler
+    );
+    if (UI.createTodoFormContainer.contains(addTodoFormToRemove)) {
+      UI.createTodoFormContainer.removeChild(addTodoFormToRemove);
+      UI.createTodoFormContainer.appendChild(UI.addTodoFormElem);
+    }
+  }
   /* END PUBLIC METHODS */
 }
