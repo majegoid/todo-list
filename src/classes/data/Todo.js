@@ -6,6 +6,7 @@ export class Todo {
   #title;
   #description;
   #isCompleted;
+  #isStarred;
   #dueDate;
   #project;
 
@@ -14,12 +15,14 @@ export class Todo {
     title = 'default title',
     description = 'default description',
     isCompleted = false,
+    isStarred = false,
     dueDate = endOfDay(Date.now()),
     project = null
   ) {
     this.#title = title;
     this.#description = description;
     this.#isCompleted = isCompleted;
+    this.#isStarred = isStarred;
     this.#dueDate = dueDate;
     this.#project = project;
   }
@@ -53,10 +56,22 @@ export class Todo {
     return this.#isCompleted;
   }
 
-  /** TODO: Sets if the todo is complete. */
+  /** Sets if the todo is complete. */
   set isCompleted(value) {
     if (typeof value === 'boolean') {
       this.#isCompleted = value;
+    }
+  }
+
+  /** Gets whether or not the todo is starred. */
+  get isStarred() {
+    return this.#isStarred;
+  }
+
+  /** Sets if the todo is starred. */
+  set isStarred(value) {
+    if (typeof value === 'boolean') {
+      this.#isStarred = value;
     }
   }
 
@@ -88,6 +103,7 @@ export class Todo {
       title: this.title,
       description: this.description,
       isCompleted: this.isCompleted,
+      isStarred: this.isStarred,
       dueDate: this.dueDate,
     };
   };

@@ -52,9 +52,16 @@ export class Actions {
     UI.setProject(Persistence.currentProject);
   }
 
-  /** Toggles the IsCompleted field for a Todo. Saves all projects as they are. (why?)*/
+  /** Toggles the isCompleted field for a Todo.*/
   static toggleTodoIsCompleted(todo, refreshHandler) {
     todo.isCompleted = !todo.isCompleted;
+    todo.project.setTodo(todo);
+    refreshHandler();
+  }
+
+  /** Toggles the isStarred field for a Todo.*/
+  static toggleTodoIsStarred(todo, refreshHandler) {
+    todo.isStarred = !todo.isStarred;
     todo.project.setTodo(todo);
     refreshHandler();
   }
@@ -76,17 +83,6 @@ export class Actions {
     UI.setCreateTodoFormDisplay(false);
   }
 
-  //FIXME: incomplete filter actions
-  // static setAllTodosView() {
-  //   let todoListItems = [];
-  //   for (const project of Persistence.projectList) {
-  //     for (const todo of project.todoList) {
-  //       todoListItems.push(TodoListItem());
-  //     }
-  //   }
-  //   UI.setProject(new Project('All Todos', todoListItems));
-  // }
-
   /** Sets the Todo List display with every Todo from every project. */
   static setAllTodosView() {
     let todoListItems = [];
@@ -98,6 +94,9 @@ export class Actions {
               todo,
               () => {
                 Actions.toggleTodoIsCompleted(todo, Actions.setAllTodosView);
+              },
+              () => {
+                Actions.toggleTodoIsStarred(todo, Actions.setAllTodosView);
               },
               () => {
                 Actions.removeTodoFromProject(todo, Actions.setAllTodosView);
@@ -127,6 +126,9 @@ export class Actions {
                   todo,
                   Actions.setDueTodayTodosView
                 );
+              },
+              () => {
+                Actions.toggleTodoIsStarred(todo, Actions.setDueTodayTodosView);
               },
               () => {
                 Actions.removeTodoFromProject(
@@ -159,6 +161,9 @@ export class Actions {
                   todo,
                   Actions.setDueThisWeekTodos
                 );
+              },
+              () => {
+                Actions.toggleTodoIsStarred(todo, Actions.setDueThisWeekTodos);
               },
               () => {
                 Actions.removeTodoFromProject(

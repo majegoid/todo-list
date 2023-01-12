@@ -141,6 +141,7 @@ export function AddTodoForm(
         titleInput.value,
         descriptionInput.value,
         false,
+        false,
         parse(dueDateInput.value, 'yyyy-MM-dd', new Date())
       );
       Actions.addTodoToCurrentProject(todo);

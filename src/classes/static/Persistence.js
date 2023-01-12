@@ -37,6 +37,7 @@ export class Persistence {
           value[i].title,
           value[i].description,
           value[i].isCompleted,
+          value[i].isStarred,
           parse(value[i].dueDate, 'MM/dd/yyyy', new Date())
         );
         todoList.push(todo);
@@ -52,17 +53,20 @@ export class Persistence {
       'Todo #1',
       'Description 1',
       false,
+      false,
       new Date(Date.now())
     );
     const todo2 = new Todo(
       'Todo #2',
       'Description 2',
       false,
+      false,
       new Date(Date.now())
     );
     const todo3 = new Todo(
       'Todo #3',
       'Description 3',
+      false,
       false,
       new Date(Date.now())
     );
@@ -71,17 +75,20 @@ export class Persistence {
       'Todo #4',
       'Description 4',
       false,
+      false,
       new Date(Date.now())
     );
     const todo5 = new Todo(
       'Todo #5',
       'Description 5',
       false,
+      false,
       new Date(Date.now())
     );
     const todo6 = new Todo(
       'Todo #6',
       'Description 6',
+      false,
       false,
       new Date(Date.now())
     );
@@ -90,17 +97,20 @@ export class Persistence {
       'Todo #7',
       'Description 7',
       false,
+      false,
       new Date(Date.now())
     );
     const todo8 = new Todo(
       'Todo #8',
       'Description 8',
       false,
+      false,
       new Date(Date.now())
     );
     const todo9 = new Todo(
       'Todo #9',
       'Description 9',
+      false,
       false,
       new Date(Date.now())
     );
