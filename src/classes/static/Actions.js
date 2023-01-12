@@ -39,6 +39,7 @@ export class Actions {
   /** Removes a project from localStorage, sets the Project Menu Items display and Todo List display. */
   static removeProject(project) {
     Persistence.removeProject(project.title);
+    UI.setTodoFilterMenuItems();
     UI.setProjectMenuItems(Persistence.currentProject.title);
     UI.setProject(Persistence.currentProject);
   }
