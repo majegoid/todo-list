@@ -86,6 +86,11 @@ export class UI {
             );
           },
           () => {
+            Actions.toggleTodoIsStarred(todo, () =>
+              Actions.setProjectView(todo.project)
+            );
+          },
+          () => {
             Actions.removeTodoFromProject(todo, () =>
               Actions.setProjectView(todo.project)
             );
