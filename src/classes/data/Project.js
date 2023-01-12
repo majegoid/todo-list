@@ -9,6 +9,10 @@ export class Project {
   constructor(title = '', todoList = []) {
     this.#title = title;
     this.#todoList = todoList;
+
+    for (const todo of this.#todoList) {
+      todo.project = this;
+    }
   }
 
   /** Gets the title of the Project. */
@@ -40,6 +44,25 @@ export class Project {
       }
     }
     this.#todoList = value;
+
+    for (const todo of this.#todoList) {
+      todo.project = this;
+    }
+  }
+
+  /** Adds or overwrites a Todo in this project's todoList. */
+  setTodo(todo) {
+    if (!(todo instanceof Todo)) {
+      return;
+    }
+    let indexOfTodo = this.#todoList.indexOf(todo);
+    if (indexOfTodo === -1) {
+      this.#todoList.push(todo);
+      return;
+    }
+    this.#todoList[indexOfTodo] = todo;
+    // save to localStorage
+    Persistence.setProject(this);
   }
 
   /** Adds one Todo to the Project's todoList. Overwrites the Project in localStorage. */
@@ -47,6 +70,7 @@ export class Project {
     if (!(todo instanceof Todo)) {
       return;
     }
+    todo.project = this;
     this.#todoList.push(todo);
     Persistence.setProject(this);
   }

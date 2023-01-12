@@ -52,6 +52,13 @@ export class Actions {
     UI.setProject(Persistence.currentProject);
   }
 
+  /** Toggles the IsCompleted field for a Todo. Saves all projects as they are. (why?)*/
+  static toggleTodoIsCompleted(todo) {
+    todo.isCompleted = !todo.isCompleted;
+    todo.project.setTodo(todo);
+    Actions.setProjectView(todo.project);
+  }
+
   //FIXME:
   /** Removes a todo from a particular Project in localStorage and refreshes using any handler. */
   static removeTodoFromProject(project, todo, refreshHandler) {
@@ -86,15 +93,7 @@ export class Actions {
     for (const project of Persistence.projectList) {
       for (const todo of project.todoList) {
         if (TodoFilters.isTodo(todo)) {
-          todoListItems.push(
-            TodoListItem(todo, () => {
-              Actions.removeTodoFromProject(
-                project,
-                todo,
-                Actions.setAllTodosView
-              );
-            })
-          );
+          todoListItems.push(TodoListItem(todo));
         }
       }
     }
@@ -110,7 +109,7 @@ export class Actions {
       for (const todo of project.todoList) {
         const todoDueDateAsDate = parse(todo.dueDate, 'MM/dd/yyyy', new Date());
         if (isToday(todoDueDateAsDate)) {
-          dueTodayTodos.push(todo);
+          dueTodayTodos.push(TodoListItem(todo));
         }
       }
     }
@@ -126,7 +125,7 @@ export class Actions {
       for (const todo of project.todoList) {
         const todoDueDateAsDate = parse(todo.dueDate, 'MM/dd/yyyy', new Date());
         if (isThisWeek(todoDueDateAsDate)) {
-          dueThisWeekTodos.push(todo);
+          dueThisWeekTodos.push(TodoListItem(todo));
         }
       }
     }

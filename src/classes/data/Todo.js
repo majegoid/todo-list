@@ -1,4 +1,5 @@
 import { endOfDay, format } from 'date-fns';
+import { Project } from './Project';
 
 /** A Todo has a title, description, isCompleted, and dueDate. */
 export class Todo {
@@ -6,18 +7,21 @@ export class Todo {
   #description;
   #isCompleted;
   #dueDate;
+  #project;
 
   /** Constructor defaults isCompleted to false and the dueDate as the end of today. */
   constructor(
     title = 'default title',
     description = 'default description',
     isCompleted = false,
-    dueDate = endOfDay(Date.now())
+    dueDate = endOfDay(Date.now()),
+    project = null
   ) {
     this.#title = title;
     this.#description = description;
     this.#isCompleted = isCompleted;
     this.#dueDate = dueDate;
+    this.#project = project;
   }
 
   /** Gets the title of the Todo. */
@@ -65,6 +69,16 @@ export class Todo {
   set dueDate(value) {
     if (value instanceof Date) {
       this.#dueDate = value;
+    }
+  }
+
+  get project() {
+    return this.#project;
+  }
+
+  set project(value) {
+    if (value instanceof Project) {
+      this.#project = value;
     }
   }
 
