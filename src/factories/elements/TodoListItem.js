@@ -1,5 +1,7 @@
+import { Actions } from '../../classes/static/Actions';
+
 /** Creates a TodoListItem and returns it. */
-export function TodoListItem(todo, deleteHandler) {
+export function TodoListItem(todo) {
   // RESULT HTML
   // <div class="todo">
   //   <div><i class="fa-solid fa-square-check clickable"></i></div>
@@ -39,7 +41,12 @@ export function TodoListItem(todo, deleteHandler) {
   // MODIFY ELEMENTS
   todoElem.className = 'todo';
 
-  checkedCheckboxIcon.className = 'fa-solid fa-square-check clickable';
+  checkedCheckboxIcon.className = 'fa-regular fa-square-check clickable';
+
+  if (!todo.isCompleted) {
+    checkedCheckboxIcon.classList.remove('fa-square-check');
+    checkedCheckboxIcon.classList.add('fa-square');
+  }
 
   titleElem.textContent = todo.title;
 
@@ -60,7 +67,9 @@ export function TodoListItem(todo, deleteHandler) {
   todoElem.appendChild(starIconContainer);
   todoElem.appendChild(trashIconContainer);
 
-  checkedCheckboxIconContainer.appendChild(checkedCheckboxIcon);
+  if (todo.project !== null) {
+    checkedCheckboxIconContainer.appendChild(checkedCheckboxIcon);
+  }
 
   infoContainer.appendChild(titleElem);
   infoContainer.appendChild(descriptionElem);
@@ -70,10 +79,20 @@ export function TodoListItem(todo, deleteHandler) {
 
   starIconContainer.appendChild(starIcon);
 
-  trashIconContainer.appendChild(trashIcon);
+  if (todo.project !== null) {
+    trashIconContainer.appendChild(trashIcon);
+  }
 
   // ADD EVENT HANDLERS
-  trashIconContainer.onclick = deleteHandler;
+  if (todo.project !== null) {
+    checkedCheckboxIconContainer.onclick = () => {
+      Actions.toggleTodoIsCompleted(todo);
+    };
+
+    trashIconContainer.onclick = () => {
+      Actions.removeTodoFromProject(todo, Actions.setAllTodosView);
+    };
+  }
 
   return todoElem;
 }

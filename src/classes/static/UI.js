@@ -55,8 +55,6 @@ export class UI {
     document.onclick = function (e) {
       let targetEl = e.target; // the clicked element
 
-      console.log(Persistence.currentProject);
-
       do {
         if (
           targetEl === UI.addProjectClickDivElem ||
