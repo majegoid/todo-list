@@ -23,6 +23,7 @@ export class Actions {
       const newProject = new Project(projectTitle, []);
       localStorage.setItem(newProject.title, JSON.stringify(newProject));
       UI.setAddProjectFormDisplay(false);
+      UI.setTodoFilterMenuItems();
       UI.setProjectMenuItems(projectTitle);
       Persistence.currentProject = newProject;
       UI.setProject(Persistence.currentProject);
@@ -38,6 +39,7 @@ export class Actions {
   /** Removes a project from localStorage, sets the Project Menu Items display and Todo List display. */
   static removeProject(project) {
     Persistence.removeProject(project.title);
+    UI.setTodoFilterMenuItems();
     UI.setProjectMenuItems(Persistence.currentProject.title);
     UI.setProject(Persistence.currentProject);
   }

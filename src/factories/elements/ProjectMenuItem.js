@@ -1,4 +1,5 @@
 import { Actions } from '../../classes/static/Actions';
+import { UI } from '../../classes/static/UI';
 
 /** Creates a ProjectMenuItem and returns it. */
 export function ProjectMenuItem(
