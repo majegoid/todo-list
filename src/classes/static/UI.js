@@ -139,6 +139,7 @@ export class UI {
     UI.todoListTitle.textContent = project.title;
     UI.#setTodos(project.todoList);
     Persistence.currentProject = project;
+    UI.updateAddTodoForm(() => Actions.setProjectView(project));
   }
 
   /** Sets the Todo List title and Todo List Items using a Title and TodoListItem[]. */
