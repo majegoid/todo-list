@@ -15,12 +15,14 @@ export class Todo {
     title = 'default title',
     description = 'default description',
     isCompleted = false,
+    isStarred = false,
     dueDate = endOfDay(Date.now()),
     project = null
   ) {
     this.#title = title;
     this.#description = description;
     this.#isCompleted = isCompleted;
+    this.#isStarred = isStarred;
     this.#dueDate = dueDate;
     this.#project = project;
   }
