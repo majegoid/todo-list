@@ -29,6 +29,7 @@ export function AddProjectForm() {
 
   addButton.className = 'button-green';
   addButton.textContent = 'Add';
+  addButton.type = 'submit';
 
   cancelButton.className = 'button-red';
   cancelButton.textContent = 'Cancel';

@@ -146,6 +146,7 @@ export function AddTodoForm(
       );
       Actions.addTodoToCurrentProject(todo);
       Actions.closeAddTodoForm();
+      Persistence.currentProject = todo.project;
       UI.setProject(Persistence.currentProject);
     }
   }
