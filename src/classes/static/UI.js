@@ -79,8 +79,14 @@ export class UI {
     for (const todo of todos) {
       UI.todosContainer.appendChild(
         TodoListItem(todo, () => {
-          Actions.removeTodoFromProject(todo, () =>
-            Actions.setProjectView(todo.project)
+          Actions.removeTodoFromProject(
+            todo,
+            () => {
+              Actions.toggleTodoIsCompleted(todo, () =>
+                Actions.setProjectView(todo.project)
+              );
+            },
+            () => Actions.setProjectView(todo.project)
           );
         })
       );
