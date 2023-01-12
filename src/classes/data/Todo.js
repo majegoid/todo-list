@@ -101,6 +101,7 @@ export class Todo {
       title: this.title,
       description: this.description,
       isCompleted: this.isCompleted,
+      isStarred: this.isStarred,
       dueDate: this.dueDate,
     };
   };
