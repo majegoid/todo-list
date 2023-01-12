@@ -37,6 +37,7 @@ export class Persistence {
           value[i].title,
           value[i].description,
           value[i].isCompleted,
+          value[i].isStarred,
           parse(value[i].dueDate, 'MM/dd/yyyy', new Date())
         );
         todoList.push(todo);
