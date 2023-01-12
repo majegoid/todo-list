@@ -40,10 +40,9 @@ export class UI {
     // Append elements
     UI.body.appendChild(UI.popup);
 
+    // Menu Items
     UI.setTodoFilterMenuItems();
-
-    // Set the Project Menu Items and Project Form
-    UI.setProjectMenuItems(Persistence.projectList);
+    UI.setProjectMenuItems(Persistence.currentProject.title);
     UI.setAddProjectFormDisplay(false);
     // Set the Project (Todo List) and Todo Form
     UI.setProject(Persistence.currentProject);
@@ -55,6 +54,8 @@ export class UI {
     // Detect clicks outside of specific elements
     document.onclick = function (e) {
       let targetEl = e.target; // the clicked element
+
+      console.log(Persistence.currentProject);
 
       do {
         if (
@@ -94,25 +95,22 @@ export class UI {
   /* END PRIVATE METHODS */
 
   /* PUBLIC METHODS */
-  // /** Removes the menu-item-active class from all Menu Items, and adds it to the active Menu Item.*/
-  // static makeProjectActive(project) {
-  //   // TODO: change active class styles
-  //   Persistence.currentProject = project;
-  //   UI.setProject(project);
-  // }
 
   /** Sets all Project Menu Items using a Project[].*/
-  static setProjectMenuItems(projects = []) {
+  static setProjectMenuItems(activeProjectTitle = '') {
+    const projects = Persistence.projectList;
     UI.projectMenuItemsContainer.replaceChildren();
-    if (Persistence.projectList.length === 1) {
+    for (const project of projects) {
       UI.projectMenuItemsContainer.appendChild(
-        ProjectMenuItem(projects[0], false)
+        ProjectMenuItem(
+          project,
+          activeProjectTitle === project.title ? true : false,
+          Persistence.projectList.length === 1 ? false : true,
+          () => {
+            Actions.setProjectView(project);
+          }
+        )
       );
-    }
-    if (Persistence.projectList.length > 1) {
-      for (const project of projects) {
-        UI.projectMenuItemsContainer.appendChild(ProjectMenuItem(project));
-      }
     }
     UI.projectMenuItemsContainer.appendChild(UI.addProjectClickDivElem);
   }
@@ -121,12 +119,14 @@ export class UI {
   static setProject(project) {
     UI.todoListTitle.textContent = project.title;
     UI.#setTodos(project.todoList);
+    Persistence.currentProject = project;
   }
 
   /** Sets the Todo List title and Todo List Items using a Title and TodoListItem[]. */
   static setTodoFilter(title, todoListItems) {
     UI.todoListTitle.textContent = title;
     UI.#setTodoListItems(todoListItems);
+    Persistence.currentProject = null;
   }
 
   /** Sets the Add Todo Form display and Add Todo Click Div display together. */

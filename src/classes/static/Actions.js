@@ -8,6 +8,13 @@ import { UI } from './UI';
 /** Contains all user-level Actions for the app. Each action may be a combination of UI and
  * Persistence methods. */
 export class Actions {
+  /** Views a particular project. */
+  static setProjectView(project) {
+    UI.setProjectMenuItems(project.title);
+    UI.setTodoFilterMenuItems();
+    UI.setProject(project);
+  }
+
   /** Adds a new Project to localStorage, hides the Add Project Form, and sets the Project Menu
    * Items with the new Project.*/
   static addProject(projectTitle) {
@@ -17,7 +24,7 @@ export class Actions {
       localStorage.setItem(newProject.title, JSON.stringify(newProject));
     }
     UI.setAddProjectFormDisplay(false);
-    UI.setProjectMenuItems(Persistence.loadProjects());
+    UI.setProjectMenuItems(projectTitle);
   }
 
   /** Closes/Hides the Add Project Form. */
@@ -28,12 +35,9 @@ export class Actions {
 
   /** Removes a project from localStorage, sets the Project Menu Items display and Todo List display. */
   static removeProject(project) {
-    let prevProject = Persistence.currentProject;
     Persistence.removeProject(project.title);
-    UI.setProjectMenuItems(Persistence.projectList);
-    if (prevProject === project) {
-      UI.setProject(Persistence.currentProject);
-    }
+    UI.setProjectMenuItems(Persistence.currentProject.title);
+    UI.setProject(Persistence.currentProject);
   }
 
   /** Adds a Todo to the current Project in localStorage and refreshes the Todo List display. */
@@ -94,6 +98,7 @@ export class Actions {
         }
       }
     }
+    UI.setProjectMenuItems();
     UI.setTodoFilterMenuItems('all-todos-menu-item');
     UI.setTodoFilter('All Todos', todoListItems);
   }
@@ -109,6 +114,7 @@ export class Actions {
         }
       }
     }
+    UI.setProjectMenuItems();
     UI.setTodoFilterMenuItems('due-today-todos-menu-item');
     UI.setProject(new Project('Due Today', dueTodayTodos));
   }
@@ -124,6 +130,7 @@ export class Actions {
         }
       }
     }
+    UI.setProjectMenuItems();
     UI.setTodoFilterMenuItems('due-this-week-todos-menu-item');
     UI.setProject(new Project('Due This Week', dueThisWeekTodos));
   }

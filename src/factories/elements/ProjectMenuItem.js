@@ -1,7 +1,12 @@
 import { Actions } from '../../classes/static/Actions';
 
 /** Creates a ProjectMenuItem and returns it. */
-export function ProjectMenuItem(project, isDeletable = true) {
+export function ProjectMenuItem(
+  project,
+  isActive = false,
+  isDeletable = true,
+  clickHandler
+) {
   // RESULT HTML
   // <div class="menu-item">
   //   <i class="fa-solid fa-list-check"></i>Your Project #1
@@ -29,7 +34,12 @@ export function ProjectMenuItem(project, isDeletable = true) {
   projectMenuItemDiv.appendChild(trashIconContainer);
 
   // ADD EVENT HANDLERS
-  projectMenuItemDiv.onclick = () => Actions.makeProjectActive(project);
+  projectMenuItemDiv.onclick = clickHandler;
+
+  // CONDITIONAL STYLES
+  if (isActive) {
+    projectMenuItemDiv.classList.add('menu-item-active');
+  }
 
   // CONDITIONAL CHILD ELEMENTS
   if (isDeletable) {
