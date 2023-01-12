@@ -52,9 +52,16 @@ export class Actions {
     UI.setProject(Persistence.currentProject);
   }
 
-  /** Toggles the IsCompleted field for a Todo. Saves all projects as they are. (why?)*/
+  /** Toggles the isCompleted field for a Todo.*/
   static toggleTodoIsCompleted(todo, refreshHandler) {
     todo.isCompleted = !todo.isCompleted;
+    todo.project.setTodo(todo);
+    refreshHandler();
+  }
+
+  /** Toggles the isStarred field for a Todo.*/
+  static toggleTodoIsStarred(todo, refreshHandler) {
+    todo.isStarred = !todo.isStarred;
     todo.project.setTodo(todo);
     refreshHandler();
   }

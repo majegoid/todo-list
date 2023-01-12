@@ -6,6 +6,9 @@ export function TodoListItem(
   checkboxHandler = () => {
     Actions.toggleTodoIsCompleted(todo, Actions.setAllTodosView);
   },
+  starredHandler = () => {
+    Actions.toggleTodoIsStarred(todo, Actions.setAllTodosView);
+  },
   deleteHandler = () => {
     Actions.removeTodoFromProject(todo, Actions.setAllTodosView);
   }
@@ -99,6 +102,8 @@ export function TodoListItem(
   // ADD EVENT HANDLERS
   if (todo.project !== null) {
     checkedCheckboxIconContainer.onclick = checkboxHandler;
+
+    starIconContainer.onclick = starredHandler;
 
     trashIconContainer.onclick = deleteHandler;
   }
