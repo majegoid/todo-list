@@ -6,6 +6,7 @@ export class Todo {
   #title;
   #description;
   #isCompleted;
+  #isStarred;
   #dueDate;
   #project;
 
@@ -53,10 +54,22 @@ export class Todo {
     return this.#isCompleted;
   }
 
-  /** TODO: Sets if the todo is complete. */
+  /** Sets if the todo is complete. */
   set isCompleted(value) {
     if (typeof value === 'boolean') {
       this.#isCompleted = value;
+    }
+  }
+
+  /** Gets whether or not the todo is starred. */
+  get isStarred() {
+    return this.#isStarred;
+  }
+
+  /** Sets if the todo is starred. */
+  set isStarred(value) {
+    if (typeof value === 'boolean') {
+      this.#isStarred = value;
     }
   }
 
