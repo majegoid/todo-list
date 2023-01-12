@@ -66,6 +66,11 @@ export function TodoListItem(
 
   starIcon.className = 'fa-solid fa-star clickable';
 
+  if (!todo.isStarred) {
+    starIcon.classList.remove('fa-solid');
+    starIcon.classList.add('fa-regular');
+  }
+
   trashIcon.className = 'fa-solid fa-trash clickable';
 
   // APPEND CHILD ELEMENTS TO PARENT ELEMENTS
