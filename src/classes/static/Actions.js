@@ -22,9 +22,11 @@ export class Actions {
       // creates and adds a new project to localStorage
       const newProject = new Project(projectTitle, []);
       localStorage.setItem(newProject.title, JSON.stringify(newProject));
+      UI.setAddProjectFormDisplay(false);
+      UI.setProjectMenuItems(projectTitle);
+      Persistence.currentProject = newProject;
+      UI.setProject(Persistence.currentProject);
     }
-    UI.setAddProjectFormDisplay(false);
-    UI.setProjectMenuItems(projectTitle);
   }
 
   /** Closes/Hides the Add Project Form. */
