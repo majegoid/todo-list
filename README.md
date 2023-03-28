@@ -1,4 +1,6 @@
 # todo-list
-Simple todo list using a custom Webpack setup.
+Simple Todo List created following along with The Odin Project. Uses a custom Webpack setup.
 
-Click to view the Live site at: https://majegoid.github.io/todo-list/
+[Visit The Live Version ↗️](https://majegoid.github.io/simple-calculator/)
+
+[Visit The Odin Project ↗️](https://www.theodinproject.com/)
